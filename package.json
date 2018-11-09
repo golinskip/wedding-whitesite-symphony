@@ -1,0 +1,31 @@
+{
+  "name": "wedding_whitesite",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.whitesite.eu/apps/wedding-whitesite-symfony"
+  },
+  "private": true,
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-less": "^2.0.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-npmcopy": "^0.1.0",
+    "jit-grunt": "^0.10.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "font-awesome": "^4.7.0",
+    "fullcalendar": "^3.9.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.5",
+    "timecircles": "^1.5.3",
+    "tinymce": "^4.8.5"
+  }
+}
