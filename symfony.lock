@@ -233,10 +233,19 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.10.0"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.10.0"
     },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.10.0"
+    },
     "symfony/polyfill-mbstring": {
+        "version": "v1.10.0"
+    },
+    "symfony/polyfill-php72": {
         "version": "v1.10.0"
     },
     "symfony/property-access": {
@@ -313,6 +322,15 @@
     },
     "twig/twig": {
         "version": "v2.5.0"
+    },
+    "voku/portable-utf8": {
+        "version": "5.2.11"
+    },
+    "voku/stop-words": {
+        "version": "2.0.0"
+    },
+    "voku/urlify": {
+        "version": "4.0.0"
     },
     "zendframework/zend-code": {
         "version": "3.3.1"

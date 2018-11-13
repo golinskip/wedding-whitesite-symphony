@@ -29,3 +29,31 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    admin.invitation:
+        class: App\Admin\InvitationAdmin
+        arguments: [~, App\Entity\Invitation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Invitation }
+        public: true
+
+    admin.person:
+        class: App\Admin\PersonAdmin
+        arguments: [~, App\Entity\Person, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Person }
+        public: true
+
+    admin.invitationGroup:
+        class: App\Admin\InvitationGroupAdmin
+        arguments: [~, App\Entity\InvitationGroup, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: InvitationGroup }
+        public: true
+
+    admin.personGroup:
+        class: App\Admin\PersonGroupAdmin
+        arguments: [~, App\Entity\PersonGroup, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: PersonGroup }
+        public: true

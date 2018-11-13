@@ -2,13 +2,25 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use voku\helper\URLify;
+use App\Helpers\ValueGenerator;
 
 /**
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="App\Repository\InvitationRepository")
  */
 class Invitation
 {
+    const STATUS_NEW = 1;
+    const STATUS_VISITED = 2;
+    const STATUS_PARTIALLY_CONFIRMED = 3;
+    const STATUS_CONFIRMED_ALL_PRESENT = 4;
+    const STATUS_CONFIRMED_PARTIALLY_PRESENT = 5;
+    const STATUS_CONFIRMED_ALL_ABSENT = 6;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -22,29 +34,34 @@ class Invitation
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=true)
+     * @ORM\Column(type="string", length=31, nullable=true)
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="integer")
      */
     private $code;
 
     /**
-     * @ORM\Column(type="string", length=63)
+     * @ORM\Column(type="datetime")
      */
-    private $token;
+    private $created;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $crated_at;
+    private $last_change;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -52,9 +69,24 @@ class Invitation
     private $url_name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=32)
      */
-    private $status;
+    private $token;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Person", mappedBy="invitation", orphanRemoval=true, cascade={"persist"})
+     */
+    private $people;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\InvitationGroup", inversedBy="invitation")
+     */
+    private $invitationGroup;
+
+    public function __construct()
+    {
+        $this->people = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -78,7 +110,7 @@ class Invitation
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -97,50 +129,49 @@ class Invitation
         return $this;
     }
 
-    public function getCode(): ?string
+    public function getCode(): ?int
     {
         return $this->code;
     }
 
-    public function setCode(string $code): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCode(): self
     {
-        $this->code = $code;
+        $this->code = ValueGenerator::code();
 
         return $this;
     }
 
-    public function getToken(): ?string
+    public function getCreated(): ?\DateTimeInterface
     {
-        return $this->token;
+        return $this->created;
     }
 
-    public function setToken(string $token): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedValue(): self
     {
-        $this->token = $token;
+        $this->created = new \DateTime();
 
         return $this;
     }
 
-    public function getCratedAt(): ?\DateTimeInterface
+    public function getLastChange(): ?\DateTimeInterface
     {
-        return $this->crated_at;
+        return $this->last_change;
     }
 
-    public function setCratedAt(\DateTimeInterface $crated_at): self
-    {
-        $this->crated_at = $crated_at;
 
-        return $this;
-    }
-
-    public function getUrlName(): ?string
+    /**
+     * @ORM\PreUpdate
+     * @ORM\PrePersist
+     */
+    public function setLastChange(): self
     {
-        return $this->url_name;
-    }
-
-    public function setUrlName(string $url_name): self
-    {
-        $this->url_name = $url_name;
+        $this->last_change = new \DateTime();
 
         return $this;
     }
@@ -150,9 +181,86 @@ class Invitation
         return $this->status;
     }
 
-    public function setStatus(int $status): self
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setStatus(): self
     {
-        $this->status = $status;
+        $this->status = self::STATUS_NEW;
+
+        return $this;
+    }
+
+    public function getUrlName(): ?string
+    {
+        return $this->url_name;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setUrlName(): self
+    {
+        $this->url_name = URLify::filter($this->getName());
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setToken(): self
+    {
+        $this->token = ValueGenerator::token();
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Person[]
+     */
+    public function getPeople(): Collection
+    {
+        return $this->people;
+    }
+
+    public function addPerson(Person $person): self
+    {
+        if (!$this->people->contains($person)) {
+            $this->people[] = $person;
+            $person->setInvitation($this);
+        }
+
+        return $this;
+    }
+
+    public function removePerson(Person $person): self
+    {
+        if ($this->people->contains($person)) {
+            $this->people->removeElement($person);
+            // set the owning side to null (unless already changed)
+            if ($person->getInvitation() === $this) {
+                $person->setInvitation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getInvitationGroup(): ?InvitationGroup
+    {
+        return $this->invitationGroup;
+    }
+
+    public function setInvitationGroup(?InvitationGroup $invitationGroup): self
+    {
+        $this->invitationGroup = $invitationGroup;
 
         return $this;
     }
