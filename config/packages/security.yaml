@@ -17,17 +17,9 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # main:
-        #     pattern: ^/
-        #     form_login:
-        #         provider: fos_userbundle
-        #         csrf_token_generator: security.csrf.token_manager
-
-        #     logout:       true
-        #     anonymous:    true
-        # -> custom firewall for the admin area of the URL
         admin:
-            pattern:            /admin(.*)
+            host: admin.%domain%
+            #pattern:            /admin(.*)
             context:            user
             form_login:
                 provider:       fos_userbundle

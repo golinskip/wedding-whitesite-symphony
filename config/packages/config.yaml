@@ -1,0 +1,3 @@
+parameters:
+    base_host: '%env(BASE_HOST)%'
+    admin_host: admin.{base_host}
