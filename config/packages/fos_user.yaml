@@ -1,0 +1,14 @@
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class:     App\Entity\User
+    from_email:
+        address: "pawel@pawelgolinski.pl"
+        sender_name: "pawel@pawelgolinski.pl"
+
+    group:
+        group_class:   App\Entity\Group
+        group_manager: sonata.user.orm.group_manager # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+
+    service:
+        user_manager: sonata.user.orm.user_manager
