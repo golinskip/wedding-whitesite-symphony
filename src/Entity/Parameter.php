@@ -5,12 +5,26 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Model\ParameterType\Logic;
+use App\Model\ParameterType\Text;
+use App\Model\ParameterType\Enum;
 
 /**
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
  */
 class Parameter
 {
+    const TYPE_LOGIC = 'logic';
+    const TYPE_TEXT = 'text';
+    const TYPE_ENUM = 'enum';
+    
+    public static $typeList = [
+        self::TYPE_LOGIC => Logic::class,
+        self::TYPE_TEXT => Text::class,
+        self::TYPE_ENUM => Enum::class,
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -23,13 +37,19 @@ class Parameter
      */
     private $name;
 
+
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean")
+     */
+    private $visible;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=15)
      */
     private $type;
 
@@ -77,28 +97,49 @@ class Parameter
         return $this;
     }
 
-    public function getType(): ?int
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(int $type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getConfig(): ?string
+    public function getVisible(): ?bool
     {
-        return $this->config;
+        return $this->visible;
     }
 
-    public function setConfig(?string $config): self
+    public function setVisible(bool $visible): self
     {
-        $this->config = $config;
+        $this->visible = $visible;
+        return $this;
+    }
+
+    public function getConfig()
+    {
+        return \unserialize($this->config);
+    }
+
+    public function setConfig($config): self
+    {
+        $this->config = \serialize($config);
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setEmptyConfig() {
+
+        $type = $this->getType();
+        $emptyConfig = new self::$typeList[$type];
+        $this->setConfig($emptyConfig);
     }
 
     /**
