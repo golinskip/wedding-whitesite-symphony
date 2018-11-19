@@ -1,3 +1,8 @@
-controllers:
-    resource: ../../src/Controller/
+public_site:
+    resource: ../../src/Controller/PublicSite
     type: annotation
+
+private_site:
+    resource: ../../src/Controller/PrivateSite
+    type: annotation
+    prefix: /panel

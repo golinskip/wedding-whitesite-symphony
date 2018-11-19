@@ -1,0 +1,30 @@
+.homesplash{
+    min-height: 100%;
+    text-align: center;
+}
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto; 
+}
+@media (min-width: 768px) {
+    .inner {
+        width: 30%;
+    }
+}
+@media (max-width: 768px) {
+    .inner {
+        width: 80%;
+    }
+}

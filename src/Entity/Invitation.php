@@ -7,13 +7,16 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use voku\helper\URLify;
 use App\Helpers\ValueGenerator;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="App\Repository\InvitationRepository")
  */
-class Invitation
+class Invitation implements UserInterface
 {
+
+    const ROLE = 'ROLE_PRIVATE_ACCESS';
     const STATUS_NEW = 1;
     const STATUS_VISITED = 2;
     const STATUS_PARTIALLY_CONFIRMED = 3;
@@ -264,4 +267,26 @@ class Invitation
 
         return $this;
     }
+
+
+    /**
+     * Implements login by Invitation
+     */
+    public function getRoles() {
+        return [self::ROLE];
+    }
+
+    public function getPassword() {
+        return $this->code;
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function getUsername() {
+        return $this->getUrlName();
+    }
+
+    public function eraseCredentials() {}
 }

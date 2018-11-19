@@ -1,7 +1,7 @@
 admin_area:
     host: "admin.{domain}"
     resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
-    prefix: /
+    prefix: /admin
     defaults:
         domain: '%base_host%'
     requirements:
@@ -11,7 +11,7 @@ _sonata_admin:
     host: "admin.{domain}"
     resource: .
     type: sonata_admin
-    prefix: /
+    prefix: /admin
     defaults:
         domain: '%base_host%'
     requirements:

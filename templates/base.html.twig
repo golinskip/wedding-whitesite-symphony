@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inwitacja - twoje nowoczesne zaproszenie.</title>
+	
+    <!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/css/bootstrap.css') }}" />
+    <!-- Font Awesome -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/css/font-awesome.css') }}" />
+    <!-- Additional css libs -->
+    {% block stylesheets %}{% endblock %}
+    <!-- Compiled css -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}" />
+
+</head>
+
+<body>
+    {#% if is_granted('ROLE_GUEST') %}
+        {% include 'InvitationBundle::navbar.html.twig' %}
+    {% endif %#}
+    <!-- page body -->
+	{% block body %}{% endblock %}
+    <!-- end page body -->
+
+    <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+    <script type="text/javascript" src="{{ asset('vendor/js/jquery.js') }}"></script>
+    <!-- Include all JavaScripts, compiled by Assetic -->
+    <script src="{{ asset('vendor/js/bootstrap.js') }}"></script>
+    <!-- Aditional javscript -->
+    {% block javascripts %}{% endblock %}
+</body>
 </html>

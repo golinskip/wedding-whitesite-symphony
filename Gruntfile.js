@@ -4,7 +4,7 @@ module.exports = function (grunt) {
         npmcopy: {
             options: {
                 srcPrefix: 'node_modules',
-                destPrefix: 'public'
+                destPrefix: 'public/vendor'
             },
             libs: {
                 files: {
@@ -38,8 +38,8 @@ module.exports = function (grunt) {
         copy: {
             main: {
                 files: [
-                    {expand: true, src: "src_web/js/**", dest: "web/assets"},
-                    {expand: true, src: "src_web/img/**", dest: "web/assets"}
+                    {expand: true, src: "src_web/js/**", dest: "public/js"},
+                    {expand: true, src: "src_web/img/**", dest: "public/img"}
                 ]
             }
         },
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
                     yuicompress: false
                 },
                 files: { // Dictionary of files
-                    'web/assets/css/style.css': 'src_web/sass/main.scss', // 'destination': 'source'
+                    'public/css/style.css': 'src_web/sass/main.scss', // 'destination': 'source'
                 }
             }
         },

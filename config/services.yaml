@@ -64,3 +64,18 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: PersonGroup }
         public: true
+
+    invitation.auhenticator:
+        class: App\Security\InvitationProvider
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+    app.menu_builder:
+        class: App\Menu\Builder 
+        arguments: ["@knp_menu.factory"] 
+ 
+    app.main_menu: 
+        class: Knp\Menu\MenuItem 
+        factory: ["@app.menu_builder", MyMenu] 
+        arguments: ["@request_stack"] 
+        tags: 
+            - { name: knp_menu.menu, alias: navigator }
