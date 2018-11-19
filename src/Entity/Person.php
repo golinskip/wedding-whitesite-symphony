@@ -57,7 +57,7 @@ class Person
     private $personGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ParameterValue", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="App\Entity\ParameterValue", mappedBy="person", cascade={"persist"} )
      */
     private $parameterValues;
 
@@ -104,9 +104,9 @@ class Person
     /**
      * @ORM\PrePersist
      */
-    public function setStatus(): self
+    public function setStatus(int $status = self::STATUS_UNDEFINED): self
     {
-        $this->status = self::STATUS_UNDEFINED;
+        $this->status = $status;
 
         return $this;
     }

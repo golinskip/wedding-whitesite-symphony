@@ -122,6 +122,10 @@ class Parameter
 
     public function getConfig()
     {
+        if($this->config === null) {
+            $configClass = $this->getConfigClass();
+            $this->config = new $configClass;
+        }
         return \unserialize($this->config);
     }
 
@@ -171,5 +175,9 @@ class Parameter
         }
 
         return $this;
+    }
+
+    public function getConfigClass() {
+        return "App\\Model\\ParameterType\\".ucfirst($Parameter->getType());
     }
 }

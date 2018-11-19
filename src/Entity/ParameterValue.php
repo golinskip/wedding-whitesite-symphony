@@ -27,7 +27,7 @@ class ParameterValue
     private $parameter;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $value;
 
@@ -65,7 +65,7 @@ class ParameterValue
         return $this->value;
     }
 
-    public function setValue(string $value): self
+    public function setValue($value): self
     {
         $this->value = $value;
 
