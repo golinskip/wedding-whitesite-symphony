@@ -1,0 +1,7 @@
+block_manager:
+    blocks:
+        text:
+            tag: block.text
+            name: Text block
+            backend_class: App\BlockManager\Blocks\TextBlock\Backend
+            frontend_class: App\BlockManager\Blocks\TextBlock\Frontend

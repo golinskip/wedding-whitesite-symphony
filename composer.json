@@ -6,7 +6,9 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "friendsofsymfony/user-bundle": "^2.1",
+        "gedmo/doctrine-extensions": "^2.4",
         "knplabs/knp-menu-bundle": "^2.2",
+        "pixassociates/sortable-behavior-bundle": "^1.5",
         "sensio/framework-extra-bundle": "^5.2",
         "setasign/fpdf": "1.8.1",
         "sonata-project/admin-bundle": "^3.40",
@@ -14,6 +16,7 @@
         "sonata-project/doctrine-orm-admin-bundle": "^3.6",
         "sonata-project/easy-extends-bundle": "^2.5",
         "sonata-project/user-bundle": "^4.2",
+        "stof/doctrine-extensions-bundle": "^1.3",
         "symfony/acl-bundle": "^1.0",
         "symfony/apache-pack": "^1.0",
         "symfony/console": "*",
@@ -24,7 +27,7 @@
         "symfony/orm-pack": "^1.0",
         "symfony/swiftmailer-bundle": "^3.2",
         "symfony/twig-bundle": "4.1.*",
-        "symfony/yaml": "*",
+        "symfony/yaml": "4.1.*",
         "voku/urlify": "^4.0"
     },
     "require-dev": {

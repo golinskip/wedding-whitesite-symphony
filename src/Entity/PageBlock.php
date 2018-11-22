@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use App\Entity\Page;
 
 /**
  * @ORM\HasLifecycleCallbacks()
@@ -25,7 +27,8 @@ class PageBlock
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="blocks")
+     * @Gedmo\SortableGroup
+     * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="page_block")
      */
     private $page;
 
@@ -65,6 +68,7 @@ class PageBlock
     private $is_enabled;
 
     /**
+     * @Gedmo\SortablePosition
      * @ORM\Column(type="integer")
      */
     private $position;
@@ -72,7 +76,6 @@ class PageBlock
 
     public function __construct()
     {
-        $this->page = new ArrayCollection();
         $this->created_by = new ArrayCollection();
     }
 
@@ -81,33 +84,14 @@ class PageBlock
         return $this->id;
     }
 
-    /**
-     * @return Collection|Page[]
-     */
-    public function getPage(): Collection
+    public function getPage(): ?Page
     {
         return $this->page;
     }
 
-    public function addPage(Page $page): self
+    public function setPage(?Page $page): self
     {
-        if (!$this->page->contains($page)) {
-            $this->page[] = $page;
-            $page->setBlocks($this);
-        }
-
-        return $this;
-    }
-
-    public function removePage(Page $page): self
-    {
-        if ($this->page->contains($page)) {
-            $this->page->removeElement($page);
-            // set the owning side to null (unless already changed)
-            if ($page->getBlocks() === $this) {
-                $page->setBlocks(null);
-            }
-        }
+        $this->page = $page;
 
         return $this;
     }
@@ -117,7 +101,7 @@ class PageBlock
         return $this->title;
     }
 
-    public function setTitle(string $type): self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -219,12 +203,33 @@ class PageBlock
 
         return $this;
     }
+
     /**
      * @ORM\PrePersist
      */
     public function autoCreatedAt(): self
     {
         $this->created_at = new \DateTime();
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function autoEnabled(): self
+    {
+        $this->is_enabled = false;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function autoPosition(): self
+    {
+        $this->position = 0;
 
         return $this;
     }

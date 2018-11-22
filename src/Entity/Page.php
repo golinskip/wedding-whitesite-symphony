@@ -82,9 +82,9 @@ class Page
     private $position;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\PageBlock", inversedBy="page")
+     * @ORM\OneToMany(targetEntity="App\Entity\PageBlock", mappedBy="page")
      */
-    private $blocks;
+    private $page_block;
 
     public function __construct()
     {
@@ -248,14 +248,33 @@ class Page
         return $this;
     }
 
-    public function getBlocks(): ?PageBlock
+    /**
+     * @return Collection|PageBlock[]
+     */
+    public function getPageBlocks(): Collection
     {
-        return $this->blocks;
+        return $this->page_block;
     }
 
-    public function setBlocks(?PageBlock $blocks): self
+    public function addPageBlock(PageBlock $page_block): self
     {
-        $this->blocks = $blocks;
+        if (!$this->page_block->contains($page_block)) {
+            $this->page_block[] = $page_block;
+            $page_block->setBlocks($this);
+        }
+
+        return $this;
+    }
+
+    public function removePageBlock(PageBlock $page_block): self
+    {
+        if ($this->page_block->contains($page_block)) {
+            $this->page_block->removeElement($page_block);
+            // set the owning side to null (unless already changed)
+            if ($page_block->getBlocks() === $this) {
+                $page_block->setBlocks(null);
+            }
+        }
 
         return $this;
     }

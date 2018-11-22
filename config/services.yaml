@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'en'
+    locale: 'pl'
 
 services:
     # default configuration for services in *this* file
@@ -76,7 +76,7 @@ services:
 
     admin.page_block:
         class: App\Admin\PageBlockAdmin
-        arguments: [~, App\Entity\PageBlock, ~]
+        arguments: [~, App\Entity\PageBlock, 'PixSortableBehaviorBundle:SortableAdmin', '@block.manager']
         tags:
             - { name: sonata.admin, manager_type: orm, group: Content, label: PageBlock }
         public: true
@@ -95,3 +95,14 @@ services:
         arguments: ["@request_stack"] 
         tags: 
             - { name: knp_menu.menu, alias: navigator }
+
+    block.manager:
+        class: App\BlockManager\Services\BlockManager
+        arguments: ['@service_container']
+    
+    gedmo.listener.sortable:
+        class: Gedmo\Sortable\SortableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
