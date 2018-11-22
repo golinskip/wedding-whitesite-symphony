@@ -34,35 +34,51 @@ services:
         class: App\Admin\InvitationAdmin
         arguments: [~, App\Entity\Invitation, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Invitation }
+            - { name: sonata.admin, manager_type: orm, group: Invitation, label: Invitation}
         public: true
 
     admin.person:
         class: App\Admin\PersonAdmin
         arguments: [~, App\Entity\Person, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Person }
+            - { name: sonata.admin, manager_type: orm, group: Invitation, label: Person}
         public: true
 
     admin.parameter:
         class: App\Admin\ParameterAdmin
         arguments: [~, App\Entity\Parameter, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Parameter }
+            - { name: sonata.admin, manager_type: orm, group: Setup, label: Parameters}
         public: true
 
     admin.invitationGroup:
         class: App\Admin\InvitationGroupAdmin
         arguments: [~, App\Entity\InvitationGroup, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: InvitationGroup }
+            - { name: sonata.admin, manager_type: orm, group: Setup, label: InvitationGroup}
         public: true
 
     admin.personGroup:
         class: App\Admin\PersonGroupAdmin
         arguments: [~, App\Entity\PersonGroup, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: PersonGroup }
+            - { name: sonata.admin, manager_type: orm, group: Setup, label: PersonGroup }
+        public: true
+
+    admin.page:
+        class: App\Admin\PageAdmin
+        arguments: [~, App\Entity\Page, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Content, label: Page }
+        calls:
+         - [ addChild, ['@admin.page_block', 'page']]
+        public: true
+
+    admin.page_block:
+        class: App\Admin\PageBlockAdmin
+        arguments: [~, App\Entity\PageBlock, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Content, label: PageBlock }
         public: true
 
     invitation.auhenticator:

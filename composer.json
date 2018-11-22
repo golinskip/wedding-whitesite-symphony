@@ -10,6 +10,7 @@
         "sensio/framework-extra-bundle": "^5.2",
         "setasign/fpdf": "1.8.1",
         "sonata-project/admin-bundle": "^3.40",
+        "sonata-project/block-bundle": "^3.12",
         "sonata-project/doctrine-orm-admin-bundle": "^3.6",
         "sonata-project/easy-extends-bundle": "^2.5",
         "sonata-project/user-bundle": "^4.2",

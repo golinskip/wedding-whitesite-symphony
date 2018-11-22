@@ -180,4 +180,9 @@ class Parameter
     public function getConfigClass() {
         return "App\\Model\\ParameterType\\".ucfirst($Parameter->getType());
     }
+
+
+    public function __toString() {
+        return $this->getName();
+    }
 }

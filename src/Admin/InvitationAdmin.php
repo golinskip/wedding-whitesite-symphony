@@ -64,7 +64,16 @@ class InvitationAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name');
+        $listMapper
+            ->addIdentifier('name')
+            ->addIdentifier('invitationGroup.name')
+            ->add('_action', null, [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
+            ;
     }
 
     public function prePersist($Invitation) {
