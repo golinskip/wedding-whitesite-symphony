@@ -3,5 +3,6 @@ block_manager:
         text:
             tag: block.text
             name: Text block
-            backend_class: App\BlockManager\Blocks\TextBlock\Backend
-            frontend_class: App\BlockManager\Blocks\TextBlock\Frontend
+            manager: App\BlockManager\Blocks\TextBlock\TextBlockManager
+            model: App\BlockManager\Blocks\TextBlock\TextBlock
+            form: App\BlockManager\Blocks\TextBlock\TextBlockForm

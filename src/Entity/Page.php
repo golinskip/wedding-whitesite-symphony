@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use voku\helper\URLify;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,11 +36,6 @@ class Page
      * @ORM\JoinColumn(name="p_id", referencedColumnName="id")
      */
     private $parent;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $site;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -77,12 +73,23 @@ class Page
     private $is_enabled;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_public_root;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_private_root;
+
+    /**
+     * @Gedmo\SortablePosition
      * @ORM\Column(type="integer")
      */
     private $position;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PageBlock", mappedBy="page")
+     * @ORM\OneToMany(targetEntity="App\Entity\PageBlock", mappedBy="page", cascade={"remove"})
      */
     private $page_block;
 
@@ -154,6 +161,17 @@ class Page
 
     public function getTitle(): ?string
     {
+        return $this->title;
+    }
+
+    public function getTitleExt(): ?string
+    {
+        if($this->getIsPrivateRoot()){
+            return $this->title." (Private Root)";
+        }
+        if($this->getIsPublicRoot()){
+            return $this->title." (Public Root)";
+        }
         return $this->title;
     }
 
@@ -236,6 +254,30 @@ class Page
         return $this;
     }
 
+    public function getIsPublicRoot(): ?bool
+    {
+        return $this->is_public_root;
+    }
+
+    public function setIsPublicRoot(bool $is_public_root): self
+    {
+        $this->is_public_root = $is_public_root;
+
+        return $this;
+    }
+
+    public function getIsPrivateRoot(): ?bool
+    {
+        return $this->is_private_root;
+    }
+
+    public function setIsPrivateRoot(bool $is_private_root): self
+    {
+        $this->is_private_root = $is_private_root;
+
+        return $this;
+    }
+
     public function getPosition(): ?int
     {
         return $this->position;
@@ -312,6 +354,9 @@ class Page
     }
 
     public function __toString() {
+        if($this->getTitle() === null) {
+            return "New Page";
+        }
         return $this->getTitle();
     }
 }

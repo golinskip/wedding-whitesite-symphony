@@ -37,7 +37,6 @@ class Parameter
      */
     private $name;
 
-
     /**
      * @ORM\Column(type="boolean")
      */
@@ -183,6 +182,9 @@ class Parameter
 
 
     public function __toString() {
+        if($this->getName() === null) {
+            return "New Parameter";
+        }
         return $this->getName();
     }
 }

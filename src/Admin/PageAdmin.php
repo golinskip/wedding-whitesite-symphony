@@ -19,14 +19,23 @@ use App\Entity\Page;
 
 class PageAdmin extends AbstractAdmin
 {
+
+    protected $datagridValues = [
+        '_sort_order' => 'ASC',
+        '_sort_by' => 'position',
+    ];
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
             ->add('title', TextType::class)
-            ->add('site', ChoiceType::class, [
-                'choices'  => [
-                    Page::SITE_PUBLIC, Page::SITE_PRIVATE,
-                ],
+            ->add('parent', EntityType::class, [
+                'class' => Page::class,
+                'choice_label' => 'title',
+                'required' => false,
+            ])
+            ->add('is_enabled', CheckboxType::class, [
+                'required' => false,
             ])
             ->add('start_publish_at', DateTimePickerType::class, [
                 'dp_side_by_side' => true,
@@ -40,13 +49,10 @@ class PageAdmin extends AbstractAdmin
                 'format'=>'yyyy-MM-dd HH:mm:ss',
                 'required' => false,
             ])
-            ->add('position', NumberType::class)
-            ->add('parent', EntityType::class, [
-                'class' => Page::class,
-                'choice_label' => 'title',
+            ->add('is_public_root', CheckboxType::class, [
                 'required' => false,
             ])
-            ->add('is_enabled', CheckboxType::class, [
+            ->add('is_private_root', CheckboxType::class, [
                 'required' => false,
             ])
         ;
@@ -63,14 +69,25 @@ class PageAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title')
+            ->addIdentifier('titleExt')
+            ->add('is_enabled', null, [
+                'editable' => true
+            ])
             ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
                     'delete' => [],
+                    'move' => [
+                        'template' => '@PixSortableBehavior/Default/_sort.html.twig'
+                    ],
                 ]
             ])
             ;
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('move', $this->getRouterIdParameter().'/move/{position}');
     }
 
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)

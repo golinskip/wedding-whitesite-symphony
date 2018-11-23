@@ -291,6 +291,9 @@ class Invitation implements UserInterface
     public function eraseCredentials() {}
 
     public function __toString() {
+        if($this->getName() === null) {
+            return "New Invitation";
+        }
         return $this->getName();
     }
 }

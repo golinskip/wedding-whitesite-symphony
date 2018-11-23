@@ -37,10 +37,11 @@ class PageBlock
      */
     private $type;
 
+
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $parameter = [];
+    private $config;
 
     /**
      * @ORM\Column(type="datetime")
@@ -204,6 +205,22 @@ class PageBlock
         return $this;
     }
 
+    public function getConfig()
+    {
+        if($this->config === null) {
+            return null;
+        }
+
+        return \unserialize($this->config);
+    }
+
+    public function setConfig($config): self
+    {
+        $this->config = \serialize($config);
+
+        return $this;
+    }
+
     /**
      * @ORM\PrePersist
      */
@@ -246,6 +263,9 @@ class PageBlock
     }
 
     public function __toString() {
-        return (string)$this->getTitle();
+        if($this->getTitle() === null) {
+            return "New Page Block";
+        }
+        return $this->getTitle();
     }
 }

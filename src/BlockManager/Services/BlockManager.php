@@ -10,12 +10,19 @@ class BlockManager {
     private $container;
 
     private $config;
+
+    private $blockManagerCache = [];
     
 
     public function __construct(Container $container) {
         $this->container = $container;
     }
 
+    /**
+     * Return array of blocks dedicated for forms
+     *
+     * @return array
+     */
     public function getBlockList() {
         $config = $this->getConfig();
         $blockArray = [];
@@ -23,6 +30,26 @@ class BlockManager {
             $blockArray[$block['name']] = $block['tag'];
         }
         return $blockArray;
+    }
+
+    /**
+     * Return block manager for structure identified by tag
+     *
+     * @param string $tag
+     * @return object
+     */
+    public function getManager(string $tag) {
+        if(isset($this->blockManagerCache[$tag])) {
+            return $this->blockManagerCache[$tag];
+        }
+        $config = $this->getConfig();
+        foreach($config['blocks'] as $block) {
+            if($block['tag'] === $tag) {
+                $this->blockManagerCache[$tag] = new $block['manager']($block);
+                return $this->blockManagerCache[$tag];
+            }
+        }
+        throw new Exception('The block manager \''.$tag.'\' not exists.');
     }
 
     protected function getConfig() {

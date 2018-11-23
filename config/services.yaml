@@ -67,7 +67,7 @@ services:
 
     admin.page:
         class: App\Admin\PageAdmin
-        arguments: [~, App\Entity\Page, ~]
+        arguments: [~, App\Entity\Page, 'PixSortableBehaviorBundle:SortableAdmin']
         tags:
             - { name: sonata.admin, manager_type: orm, group: Content, label: Page }
         calls:

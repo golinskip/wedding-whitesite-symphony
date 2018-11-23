@@ -116,6 +116,9 @@ class InvitationGroup
     }
 
     public function __toString() {
+        if($this->getName() === null) {
+            return "New Invitation Group";
+        }
         return $this->getName();
     }
 }

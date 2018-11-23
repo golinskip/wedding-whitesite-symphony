@@ -30,13 +30,37 @@ class PageBlockAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $blockList = $this->blockManager->getBlockList();
+        
         $formMapper
             ->add('title', TextType::class)
-            ->add('type', ChoiceType::class, [
-                'choices'  => $blockList,
-            ])
-            
+        ;
+
+        $pageBlock = $this->getSubject();
+    
+        if (!$pageBlock || null === $pageBlock->getId()) {
+            $formMapper
+                ->add('type', ChoiceType::class, [
+                    'choices'  => $blockList,
+                ])
             ;
+        } else {
+            $type = $pageBlock->getType();
+            $formMapper
+                ->add('type', ChoiceType::class, [
+                    'choices'  => $blockList,
+                    'disabled' => true,
+                ])
+            ;
+            $blockManager = $this->blockManager->getManager($type);
+            if($pageBlock->getConfig() === null) {
+                $pageBlock->setConfig($blockManager->createObject());
+            }
+
+            $formClass = $blockManager->getFormClass();
+            $formMapper->add('config', $formClass, [
+                'label' => false,
+            ]);
+        }
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -50,6 +74,7 @@ class PageBlockAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('title')
+            ->add('type')
             ->add('is_enabled', null, [
                 'editable' => true
             ])

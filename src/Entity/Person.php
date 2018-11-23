@@ -179,6 +179,9 @@ class Person
 
 
     public function __toString() {
+        if($this->getName() === null) {
+            return "New Person";
+        }
         return $this->getName();
     }
 }
