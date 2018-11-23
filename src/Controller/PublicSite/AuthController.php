@@ -17,7 +17,7 @@ class AuthController extends AbstractController
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        return $this->render('public_site/login.html.twig', [
+        return $this->render('public_site/login/index.html.twig', [
             'error' => $error,
         ]);
     }

@@ -1,0 +1,13 @@
+{% extends 'public_site/base.html.twig' %}
+
+{% block content %}
+    {% if blockProvider.count > 0 %}
+        {% for i in 1..blockProvider.count %}
+        <!-- container -->
+        <div class="container wws-container wws-public-container">
+            {% include blockProvider.currentTypeManager.twigTemplate with { 'data': blockProvider.objNext} %}
+        </div>
+        <!-- /.container -->
+        {% endfor %}
+    {% endif %}
+{% endblock %}

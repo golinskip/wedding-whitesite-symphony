@@ -76,14 +76,26 @@ services:
 
     admin.page_block:
         class: App\Admin\PageBlockAdmin
-        arguments: [~, App\Entity\PageBlock, 'PixSortableBehaviorBundle:SortableAdmin', '@block.manager']
+        arguments: [~, App\Entity\PageBlock, 'PixSortableBehaviorBundle:SortableAdmin', '@block.service']
         tags:
             - { name: sonata.admin, manager_type: orm, group: Content, label: PageBlock }
         public: true
 
+    # Manager of block
+    block.service:
+        class: App\BlockManager\Services\BlockService
+
     invitation.auhenticator:
         class: App\Security\InvitationProvider
         arguments: [ "@doctrine.orm.entity_manager" ]
+
+    # External bundles 
+    gedmo.listener.sortable:
+        class: Gedmo\Sortable\SortableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
     app.menu_builder:
         class: App\Menu\Builder 
@@ -96,13 +108,8 @@ services:
         tags: 
             - { name: knp_menu.menu, alias: navigator }
 
-    block.manager:
-        class: App\BlockManager\Services\BlockManager
-        arguments: ['@service_container']
-    
-    gedmo.listener.sortable:
-        class: Gedmo\Sortable\SortableListener
+
+    # Data guards:
+    App\EventListener\PageDataGuard:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ "@annotation_reader" ] ]

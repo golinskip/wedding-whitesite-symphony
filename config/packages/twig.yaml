@@ -6,3 +6,5 @@ twig:
         - 'bootstrap_4_layout.html.twig'
         - 'SonataCoreBundle:Form:datepicker.html.twig'
         - '@SonataCore/Form/color.html.twig'
+    paths:
+        '%kernel.project_dir%/src/BlockManager/templates': BlockManagerTemplates

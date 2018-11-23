@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use voku\helper\URLify;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use App\BlockManager\BlockProvider;
+use App\BlockManager\Base\BlockModelInterface;
 
 /**
  * @ORM\HasLifecycleCallbacks()
@@ -90,6 +92,7 @@ class Page
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\PageBlock", mappedBy="page", cascade={"remove"})
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $page_block;
 
@@ -166,6 +169,9 @@ class Page
 
     public function getTitleExt(): ?string
     {
+        if($this->getIsPrivateRoot() && $this->getIsPublicRoot()){
+            return $this->title." (Public and private Root)";
+        }
         if($this->getIsPrivateRoot()){
             return $this->title." (Private Root)";
         }
@@ -278,6 +284,20 @@ class Page
         return $this;
     }
 
+    public function getIsRoot(bool $is_public) {
+        if($is_public) {
+            return $this->getIsPublicRoot();
+        }
+        return $this->getIsPrivateRoot();
+    }
+
+    public function setIsRoot(bool $is_root, bool $is_public): self {
+        if($is_public) {
+            return $this->setIsPublicRoot($is_root);
+        }
+        return $this->setIsPrivateRoot($is_root);
+    }
+
     public function getPosition(): ?int
     {
         return $this->position;
@@ -358,5 +378,19 @@ class Page
             return "New Page";
         }
         return $this->getTitle();
+    }
+
+    public function createBlockProvider(): BlockProvider {
+        $provider = new BlockProvider;
+        foreach($this->getPageBlocks() as $pageBlock) {
+            if(!$pageBlock->getIsEnabled()) {
+                continue;
+            }
+            $blockObj = $pageBlock->getConfig();
+            if($blockObj instanceof BlockModelInterface) {
+                $provider->pushBlock($pageBlock->getType(), $blockObj);
+            }
+        }
+        return $provider;
     }
 }

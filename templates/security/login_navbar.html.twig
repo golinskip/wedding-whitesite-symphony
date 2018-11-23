@@ -1,0 +1,8 @@
+
+<form class="form-inline my-2 my-lg-0" method="post" action="{{ path('app_login') }}">
+    <input type="text" name="code" id="inputCode" class="form-control mr-sm-2" placeholder="Insert your code" required>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        GO!
+    </button>
+</form>

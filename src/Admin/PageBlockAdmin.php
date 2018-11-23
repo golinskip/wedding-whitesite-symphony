@@ -12,15 +12,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\CoreBundle\Form\Type\DateTimePickerType;
-use App\BlockManager\Services\BlockManager;
+use App\BlockManager\Services\BlockService;
 
 
 class PageBlockAdmin extends AbstractAdmin
 {
     /*
-    * @var BlockManager
+    * @var blockService
     */
-    protected $blockManager;
+    protected $blockService;
 
     protected $datagridValues = [
         '_sort_order' => 'ASC',
@@ -29,7 +29,7 @@ class PageBlockAdmin extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $blockList = $this->blockManager->getBlockList();
+        $blockList = $this->blockService->getBlockList();
         
         $formMapper
             ->add('title', TextType::class)
@@ -50,13 +50,14 @@ class PageBlockAdmin extends AbstractAdmin
                     'choices'  => $blockList,
                     'disabled' => true,
                 ])
+                ->add('is_enabled')
             ;
-            $blockManager = $this->blockManager->getManager($type);
+            $blockService = $this->blockService->getManager($type);
             if($pageBlock->getConfig() === null) {
-                $pageBlock->setConfig($blockManager->createObject());
+                $pageBlock->setConfig($blockService->createObject());
             }
 
-            $formClass = $blockManager->getFormClass();
+            $formClass = $blockService->getFormClass();
             $formMapper->add('config', $formClass, [
                 'label' => false,
             ]);
@@ -104,11 +105,11 @@ class PageBlockAdmin extends AbstractAdmin
     * @param string $code
     * @param string $class
     * @param string $baseControllerName
-    * @param BlockManager $blockManager
+    * @param BlockService $blockService
     */
-   public function __construct($code, $class, $baseControllerName, $blockListService, BlockManager $blockManager)
+   public function __construct($code, $class, $baseControllerName, BlockService $blockService)
    {
-       $this->blockManager = $blockManager;
+       $this->blockService = $blockService;
        return parent::__construct($code, $class, $baseControllerName);
    }
 }

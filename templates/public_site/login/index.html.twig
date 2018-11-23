@@ -1,0 +1,13 @@
+{% extends 'public_site/base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        {% include 'security/login.html.twig' %}
+    </div>
+{% endblock %}

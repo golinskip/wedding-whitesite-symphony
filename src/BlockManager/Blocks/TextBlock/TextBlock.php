@@ -2,7 +2,9 @@
 
 namespace App\BlockManager\Blocks\TextBlock;
 
-class TextBlock {
+use App\BlockManager\Base\BlockModelInterface;
+
+class TextBlock implements BlockModelInterface {
     public $content;
     
     public function getContent() {

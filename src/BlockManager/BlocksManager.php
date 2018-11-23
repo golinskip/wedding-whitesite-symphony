@@ -1,22 +1,16 @@
 <?php
-namespace App\BlockManager\Services;
+namespace App\BlockManager;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Config\Definition\Processor;
 use App\BlockManager\BlockConfiguration;
 
-class BlockManager {
-    private $container;
+class BlocksManager {
 
     private $config;
 
     private $blockManagerCache = [];
-    
-
-    public function __construct(Container $container) {
-        $this->container = $container;
-    }
 
     /**
      * Return array of blocks dedicated for forms
@@ -55,7 +49,7 @@ class BlockManager {
     protected function getConfig() {
         if($this->config === null) {
             $config = Yaml::parse(
-                file_get_contents(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."config".DIRECTORY_SEPARATOR.'block_manager.yaml')
+                file_get_contents(__DIR__.DIRECTORY_SEPARATOR."config".DIRECTORY_SEPARATOR.'block_manager.yaml')
             );
             
             $processor = new Processor();

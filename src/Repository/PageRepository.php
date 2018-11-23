@@ -19,6 +19,45 @@ class PageRepository extends ServiceEntityRepository
         parent::__construct($registry, Page::class);
     }
 
+    public function findRoots(bool $is_public) {
+        if($is_public) {
+            return $this->findPublicRoots();
+        }
+        return $this->findPrivateRoots();
+    }
+
+    public function findPrivateRoots() {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.is_private_root = 1')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findPublicRoots() {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.is_public_root = 1')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findPrivateRoot() {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.is_private_root = 1')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function findPublicRoot() {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.is_public_root = 1')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     // /**
     //  * @return Page[] Returns an array of Page objects
     //  */
