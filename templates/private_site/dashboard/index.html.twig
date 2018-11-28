@@ -3,7 +3,11 @@
 {% block title %}Hello {{ controller_name }}!{% endblock %}
 
 {% block content %}
-<div class="example-wrapper">
-    Dzieńdo
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1>Jumbotron example</h1>
+    <p>Bootstrap is the most popular HTML, CSS...</p>
+  </div>
 </div>
+    {% include 'blocks/block_loop.html.twig' %}
 {% endblock %}

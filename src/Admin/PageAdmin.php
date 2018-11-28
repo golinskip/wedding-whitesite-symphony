@@ -29,12 +29,18 @@ class PageAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('title', TextType::class)
-            ->add('parent', EntityType::class, [
+            /*->add('parent', EntityType::class, [
                 'class' => Page::class,
                 'choice_label' => 'title',
                 'required' => false,
-            ])
+            ])*/
             ->add('is_enabled', CheckboxType::class, [
+                'required' => false,
+            ])
+            ->add('is_public', CheckboxType::class, [
+                'required' => false,
+            ])
+            ->add('is_in_menu', CheckboxType::class, [
                 'required' => false,
             ])
             ->add('start_publish_at', DateTimePickerType::class, [
@@ -49,10 +55,7 @@ class PageAdmin extends AbstractAdmin
                 'format'=>'yyyy-MM-dd HH:mm:ss',
                 'required' => false,
             ])
-            ->add('is_public_root', CheckboxType::class, [
-                'required' => false,
-            ])
-            ->add('is_private_root', CheckboxType::class, [
+            ->add('is_root', CheckboxType::class, [
                 'required' => false,
             ])
         ;
@@ -73,6 +76,10 @@ class PageAdmin extends AbstractAdmin
             ->add('is_enabled', null, [
                 'editable' => true
             ])
+            ->add('is_in_menu', null, [
+                'editable' => true
+            ])
+            ->add('is_public', null)
             ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
@@ -99,15 +106,15 @@ class PageAdmin extends AbstractAdmin
         $admin = $this->isChild() ? $this->getParent() : $this;
         $id = $admin->getRequest()->get('id');
 
-        if ($this->isGranted('EDIT')) {
-            $menu->addChild('Edit Page', [
-                'uri' => $admin->generateUrl('edit', ['id' => $id])
-            ]);
-        }
-
         if ($this->isGranted('LIST')) {
             $menu->addChild('Manage Blocks', [
                 'uri' => $admin->generateUrl('admin.page_block.list', ['id' => $id])
+            ]);
+        }
+
+        if ($this->isGranted('EDIT')) {
+            $menu->addChild('Configure Page', [
+                'uri' => $admin->generateUrl('edit', ['id' => $id])
             ]);
         }
     }

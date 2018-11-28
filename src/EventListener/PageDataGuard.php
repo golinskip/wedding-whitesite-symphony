@@ -50,30 +50,52 @@ class PageDataGuard implements EventSubscriber
         } else {
             $RootPages = $RootPagesRepository->findPrivateRoots();
         }
-        
+
         switch(count($RootPages)) {
-            case 1: return true;
+            case 1: 
+                break;
             case 0:
-                $page->setIsRoot(1, $isPublic);
+                if($page->getIsPublic() == $isPublic) {
+                    $page->setIsRoot(1);
+                } else {
+                    $newestRootPage = null;
+                    foreach($RootPages as $RootPage) {
+                        if($RootPage->getIsPublic() !== $isPublic) {
+                            continue;
+                        } elseif($newestRootPage === null) {
+                            $newestRootPage = $RootPage;
+                        } elseif($newestRootPage->getUpdatedAt()->getTimestamp() < $RootPage->getUpdatedAt()->getTimestamp()) {
+                            $newestRootPage = $RootPage;
+                        }
+                    }
+                    if($newestRootPage !== null) {
+                        $newestRootPage->setIsRoot(1);
+                    }
+                }
                 break;
             default:
-                if($page->getIsRoot($isPublic)) {
+                if($page->getIsRoot() && $page->getIsPublic() !== $isPublic) {
                     foreach($RootPages as $RootPage) {
-                        if($RootPage->getId() !== $page->getId()) {
-                            $RootPage->setIsRoot(0, $isPublic);
+                        if($RootPage->getId() !== $page->getId() && $RootPage->getIsPublic() !== $isPublic) {
+                            $RootPage->setIsRoot(0);
                         }
                     }
                 } else {
                     $newestRootPage = null;
                     foreach($RootPages as $RootPage) {
-                        if($newestRootPage === null) {
+                        if($page->getIsPublic() !== $isPublic) {
+                            continue;
+                        } elseif($newestRootPage === null) {
                             $newestRootPage = $RootPage;
                         } elseif($newestRootPage->getUpdatedAt()->getTimestamp() < $RootPage->getUpdatedAt()->getTimestamp()) {
-                            $newestRootPage->setIsRoot(0, $isPublic);
+                            $newestRootPage->setIsRoot(0);
                             $newestRootPage = $RootPage;
                         } else {
-                            $RootPage->setIsRoot(0, $isPublic);
+                            $RootPage->setIsRoot(0);
                         }
+                    }
+                    if($newestRootPage !== null) {
+                        $newestRootPage->setIsRoot(1);
                     }
                 }
         }

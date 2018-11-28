@@ -99,14 +99,21 @@ services:
 
     app.menu_builder:
         class: App\Menu\Builder 
-        arguments: ["@knp_menu.factory"] 
+        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@router"] 
  
-    app.main_menu: 
+    app.private_menu: 
         class: Knp\Menu\MenuItem 
-        factory: ["@app.menu_builder", MyMenu] 
+        factory: ["@app.menu_builder", PrivateMenu] 
         arguments: ["@request_stack"] 
         tags: 
-            - { name: knp_menu.menu, alias: navigator }
+            - { name: knp_menu.menu, alias: private_menu }
+ 
+    app.public_menu: 
+        class: Knp\Menu\MenuItem 
+        factory: ["@app.menu_builder", PublicMenu] 
+        arguments: ["@request_stack"] 
+        tags: 
+            - { name: knp_menu.menu, alias: public_menu }
 
 
     # Data guards:

@@ -1,0 +1,31 @@
+{# Google Maps block. Provide TextBlock model class as data #}
+<div class="wws-block-google-maps">
+    {% if data.layout == 0 %}
+    <div class="row">
+        <div class="col-md-12 description-row">
+            {{data.description|raw}}
+        </div>
+        <div class="col-md-12 map-row">
+            {{data.code|raw}}
+        </div>
+    </div>
+    {% elseif data.layout == 1 %}
+    <div class="row">
+        <div class="col-md-6 description-row">
+            {{data.description|raw}}
+        </div>
+        <div class="col-md-6 map-row">
+            {{data.code|raw}}
+        </div>
+    </div>
+    {% elseif data.layout == 2 %}
+    <div class="row">
+        <div class="col-md-6 map-row">
+            {{data.code|raw}}
+        </div>
+        <div class="col-md-6 description-row">
+            {{data.description|raw}}
+        </div>
+    </div>
+    {% endif %}
+</div>

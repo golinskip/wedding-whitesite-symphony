@@ -28,7 +28,8 @@ class PageRepository extends ServiceEntityRepository
 
     public function findPrivateRoots() {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.is_private_root = 1')
+            ->andWhere('p.is_root = 1')
+            ->andWhere('p.is_public = 0')
             ->getQuery()
             ->getResult()
         ;
@@ -36,7 +37,8 @@ class PageRepository extends ServiceEntityRepository
 
     public function findPublicRoots() {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.is_public_root = 1')
+            ->andWhere('p.is_root = 1')
+            ->andWhere('p.is_public = 1')
             ->getQuery()
             ->getResult()
         ;
@@ -44,7 +46,8 @@ class PageRepository extends ServiceEntityRepository
 
     public function findPrivateRoot() {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.is_private_root = 1')
+            ->andWhere('p.is_root = 1')
+            ->andWhere('p.is_public = 0')
             ->getQuery()
             ->getOneOrNullResult()
         ;
@@ -52,7 +55,40 @@ class PageRepository extends ServiceEntityRepository
 
     public function findPublicRoot() {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.is_public_root = 1')
+            ->andWhere('p.is_root = 1')
+            ->andWhere('p.is_public = 1')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function findPrivateEnabled() {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.is_enabled = 1')
+            ->andWhere('p.is_public = 0')
+            ->addOrderBy('p.position', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findPublicEnabled() {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.is_enabled = 1')
+            ->andWhere('p.is_public = 1')
+            ->addOrderBy('p.position', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findOneBySlugAndPrivacy($slug, $is_public): ?Page
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.is_enabled = 1')
+            ->andWhere('p.is_public = '.($is_public?'1':'0'))
+            ->andWhere('p.url_name = :val')
+            ->setParameter('val', $slug)
             ->getQuery()
             ->getOneOrNullResult()
         ;

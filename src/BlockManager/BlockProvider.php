@@ -70,6 +70,11 @@ class BlockProvider {
         return $this->popBlock();
     }
 
+    public function getGoNext() {
+        $this->popBlock();
+        return "";
+    }
+
     public function __construct() {
         $this->blocksManager = new BlocksManager;
     }

@@ -62,6 +62,7 @@ class PageBlockAdmin extends AbstractAdmin
                     ->add('title', TextType::class)
                     ->add('type', HiddenType::class)
                     ->add('is_enabled')
+                    ->add('is_in_menu')
                     ->add('block_style', ChoiceType::class, [
                         'choices' => PageBlock::getStyles(),
                     ])
@@ -76,6 +77,16 @@ class PageBlockAdmin extends AbstractAdmin
                     ->add('bg_image', ModelListType::class, [
                         'required' => false,
                     ])
+                    ->add('bg_position', ChoiceType::class, [
+                        'choices' => PageBlock::getBgPositions(),
+                    ])
+                    ->add('margin_top', ChoiceType::class, [
+                        'choices' => PageBlock::getSizes(),
+                    ])
+                    ->add('margin_bottom', ChoiceType::class, [
+                        'choices' => PageBlock::getSizes(),
+                    ])
+                    ->add('is_full_height')
                     ->add('start_publish_at', DateTimePickerType::class, [
                         'required' => false,
                     ])
@@ -101,6 +112,9 @@ class PageBlockAdmin extends AbstractAdmin
             ->addIdentifier('title')
             ->add('type')
             ->add('is_enabled', null, [
+                'editable' => true
+            ])
+            ->add('is_in_menu', null, [
                 'editable' => true
             ])
             ->add('_action', null, [

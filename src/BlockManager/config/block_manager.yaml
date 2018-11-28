@@ -12,3 +12,9 @@ block_manager:
             manager: App\BlockManager\Blocks\CounterHeader\CounterHeaderManager
             model: App\BlockManager\Blocks\CounterHeader\CounterHeader
             form: App\BlockManager\Blocks\CounterHeader\CounterHeaderForm
+        google_maps:
+            tag: block.google_maps
+            name: Maps Google
+            manager: App\BlockManager\Blocks\GoogleMaps\GoogleMapsManager
+            model: App\BlockManager\Blocks\GoogleMaps\GoogleMaps
+            form: App\BlockManager\Blocks\GoogleMaps\GoogleMapsForm

@@ -5,15 +5,25 @@
 #}
 <!-- container -->
 {% spaceless %}
+
     <div class="container{% if (block_data.blockStyle == 1 or block_data.blockStyle == 2) %}-fluid{% endif %} wws-container wws-public-container" style="
-    {% if block_data.bgImage is not null %}
-        background-image: url('{% path block_data.bgImage, 'reference' %}');
+        {% if block_data.bgImage %}
+            background-image: url('{% path block_data.bgImage, 'reference' %}');
+        {% endif %}
+        {% if block_data.bgColor %}
+            background-color: {{ block_data.bgColor }};
+        {% endif %}
         background-size:cover;
-        background-position: center center;
-    {% endif %}
+        background-position: {{ block_data.bgPosition}};
+        padding-top: {{ block_data.marginTop}};
+        padding-bottom: {{ block_data.marginBottom}};
+        {% if block_data.isFullHeight %}
+            min-height:100vh;
+        {% endif %}
     ">
 {% endspaceless %}
     {% if (block_data.blockStyle == 1) %}<div class="container">{% endif %}
+<a name="{{ block_data.urlName }}" id="{{ block_data.urlName }}">
         {% include block_template %}
     {% if (block_data.blockStyle == 1) %}</div>{% endif %}
 </div>

@@ -31,13 +31,13 @@ class Page
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="parent")
      */
-    private $children;
+    //private $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Page", inversedBy="children")
      * @ORM\JoinColumn(name="p_id", referencedColumnName="id")
      */
-    private $parent;
+    //private $parent;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -77,12 +77,7 @@ class Page
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_public_root;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_private_root;
+    private $is_root;
 
     /**
      * @Gedmo\SortablePosition
@@ -96,6 +91,17 @@ class Page
      */
     private $page_block;
 
+    
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_public;
+    
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_in_menu;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
@@ -107,7 +113,7 @@ class Page
         return $this->id;
     }
 
-    public function getParent(): ?self
+    /*public function getParent(): ?self
     {
         return $this->parent;
     }
@@ -121,7 +127,7 @@ class Page
 
     /**
      * @return Collection|self[]
-     */
+     *
     public function getChildren(): Collection
     {
         return $this->children;
@@ -148,7 +154,7 @@ class Page
         }
 
         return $this;
-    }
+    }*/
 
     public function getSite(): ?int
     {
@@ -169,14 +175,12 @@ class Page
 
     public function getTitleExt(): ?string
     {
-        if($this->getIsPrivateRoot() && $this->getIsPublicRoot()){
-            return $this->title." (Public and private Root)";
-        }
-        if($this->getIsPrivateRoot()){
-            return $this->title." (Private Root)";
-        }
-        if($this->getIsPublicRoot()){
-            return $this->title." (Public Root)";
+        if($this->getIsRoot()) {
+            if($this->getIsPublic()) {
+                return $this->title." (Public Root)";
+            } else {
+                return $this->title." (Private Root)";
+            }
         }
         return $this->title;
     }
@@ -260,42 +264,16 @@ class Page
         return $this;
     }
 
-    public function getIsPublicRoot(): ?bool
+    public function getIsRoot(): ?bool
     {
-        return $this->is_public_root;
+        return $this->is_root;
     }
 
-    public function setIsPublicRoot(bool $is_public_root): self
+    public function setIsRoot(bool $is_root): self
     {
-        $this->is_public_root = $is_public_root;
+        $this->is_root = $is_root;
 
         return $this;
-    }
-
-    public function getIsPrivateRoot(): ?bool
-    {
-        return $this->is_private_root;
-    }
-
-    public function setIsPrivateRoot(bool $is_private_root): self
-    {
-        $this->is_private_root = $is_private_root;
-
-        return $this;
-    }
-
-    public function getIsRoot(bool $is_public) {
-        if($is_public) {
-            return $this->getIsPublicRoot();
-        }
-        return $this->getIsPrivateRoot();
-    }
-
-    public function setIsRoot(bool $is_root, bool $is_public): self {
-        if($is_public) {
-            return $this->setIsPublicRoot($is_root);
-        }
-        return $this->setIsPrivateRoot($is_root);
     }
 
     public function getPosition(): ?int
@@ -383,7 +361,7 @@ class Page
     public function createBlockProvider(): BlockProvider {
         $provider = new BlockProvider;
         foreach($this->getPageBlocks() as $pageBlock) {
-            if(!$pageBlock->getIsEnabled()) {
+            if(!$pageBlock->getShowable()) {
                 continue;
             }
             $blockObj = $pageBlock->getConfig();
@@ -392,5 +370,45 @@ class Page
             }
         }
         return $provider;
+    }
+
+    /**
+     * Get the value of is_public
+     */ 
+    public function getIsPublic():?bool
+    {
+        return $this->is_public;
+    }
+
+    /**
+     * Set the value of is_public
+     *
+     * @return  self
+     */ 
+    public function setIsPublic($is_public)
+    {
+        $this->is_public = $is_public;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of is_in_menu
+     */ 
+    public function getIsInMenu():?bool
+    {
+        return $this->is_in_menu;
+    }
+
+    /**
+     * Set the value of is_in_menu
+     *
+     * @return  self
+     */ 
+    public function setIsInMenu($is_in_menu)
+    {
+        $this->is_in_menu = $is_in_menu;
+
+        return $this;
     }
 }
