@@ -56,7 +56,7 @@ module.exports = function (grunt) {
         },
         watch: {
             styles: {
-                files: ['sass/**', 'js/**', 'img/**'], // which files to watch
+                files: ['src_web/**'], // which files to watch
                 tasks: ['sass', 'copy'],
                 options: {
                     nospawn: true

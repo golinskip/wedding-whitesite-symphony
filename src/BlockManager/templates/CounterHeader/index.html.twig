@@ -1,7 +1,45 @@
-<div class="jumbotron wws-block-counter-header">
-    <h1>{{ data.title }}</h1>
+<div class="wws-block-counter-header">
     {% if data.description %}
-        <p>{{ data.description }}</p>
+        <p>{{ data.description|raw }}</p>
     {% endif %}
-    <p>{{ data.weddingDate|date('Y-m-d H:i:s') }}</p>
+    <p>
+        <div id="countdown"></div>
+    </p>
+    <script type="text/javascript">
+        var end = new Date('{{ data.weddingDate|date('Y-m-d H:i:s') }}');
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var timer;
+
+        function showRemaining() {
+            var now = new Date();
+            var distance = end - now;
+            if (distance < 0) {
+
+                clearInterval(timer);
+                document.getElementById('countdown').innerHTML = '{{ data.textOnComplete }}';
+
+                return;
+            }
+            var days = Math.floor(distance / _day);
+            var hours = Math.floor((distance % _day) / _hour);
+            var minutes = Math.floor((distance % _hour) / _minute);
+            var seconds = Math.floor((distance % _minute) / _second);
+
+                              document.getElementById('countdown').innerHTML = ' {{ data.textAfterCounter }} ';
+            if(days == 1)     document.getElementById('countdown').innerHTML += days     + ' {{ 'blocks.counterHeader.dy'|trans }}';
+            else              document.getElementById('countdown').innerHTML += days     + ' {{ 'blocks.counterHeader.dys'|trans }} ';
+            if(hours == 1)    document.getElementById('countdown').innerHTML += hours   + ' {{ 'blocks.counterHeader.hr'|trans }} ';
+            else              document.getElementById('countdown').innerHTML += hours   + ' {{ 'blocks.counterHeader.hrs'|trans }} ';
+            if(minutes == 1)  document.getElementById('countdown').innerHTML += minutes + ' {{ 'blocks.counterHeader.mt'|trans }} ';
+            else              document.getElementById('countdown').innerHTML += minutes + ' {{ 'blocks.counterHeader.mts'|trans }} ';
+            if(seconds == 1)  document.getElementById('countdown').innerHTML += seconds + ' {{ 'blocks.counterHeader.sd'|trans }} ';
+            else              document.getElementById('countdown').innerHTML += seconds + ' {{ 'blocks.counterHeader.sds'|trans }} ';
+                              document.getElementById('countdown').innerHTML += ' {{ data.textBeforeCounter }} ';
+        }
+        timer = setInterval(showRemaining, 1000);
+        showRemaining();
+    </script>
 </div>

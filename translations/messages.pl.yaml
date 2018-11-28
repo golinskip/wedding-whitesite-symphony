@@ -1,0 +1,10 @@
+blocks:
+    counterHeader:
+        dys: dni
+        dy: dzień
+        hrs: godzin
+        hr: godzina
+        mts: minut
+        mt: minuta
+        sds: sekund
+        sd: sekunda

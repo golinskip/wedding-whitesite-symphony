@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Page;
+use App\Application\Sonata\MediaBundle\Entity\Media;
 
 /**
  * @ORM\HasLifecycleCallbacks()
@@ -14,6 +15,11 @@ use App\Entity\Page;
  */
 class PageBlock
 {
+
+    const STYLE_TINY = 0;
+    const STYLE_FULL_BG_TINY = 1;
+    const STYLE_FULL = 2;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -73,6 +79,31 @@ class PageBlock
      * @ORM\Column(type="integer")
      */
     private $position;
+
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Application\Sonata\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $bg_image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $bg_color;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $block_style;
+
+    public static function getStyles() {
+        return [
+            'With margin' => self::STYLE_TINY,
+            'Margin with full width' => self::STYLE_FULL_BG_TINY,
+            'Full width' => self::STYLE_FULL,
+        ];
+    }
 
 
     public function __construct()
@@ -162,7 +193,7 @@ class PageBlock
         return $this->start_publish_at;
     }
 
-    public function setStartPublishAt(\DateTimeInterface $start_publish_at): self
+    public function setStartPublishAt(?\DateTimeInterface $start_publish_at): self
     {
         $this->start_publish_at = $start_publish_at;
 
@@ -193,6 +224,30 @@ class PageBlock
         return $this;
     }
 
+    public function getBgColor(): ?string
+    {
+        return $this->bg_color;
+    }
+
+    public function setBgColor(?string $bg_color): self
+    {
+        $this->bg_color = $bg_color;
+
+        return $this;
+    }
+
+    public function getBlockStyle(): ?int
+    {
+        return $this->block_style;
+    }
+
+    public function setBlockStyle(int $block_style): self
+    {
+        $this->block_style = $block_style;
+
+        return $this;
+    }
+
     public function getPosition(): ?int
     {
         return $this->position;
@@ -203,6 +258,23 @@ class PageBlock
         $this->position = $position;
 
         return $this;
+    }
+
+
+    /**
+     * @return Media
+     */
+    public function getBgImage()
+    {
+        return $this->bg_image;
+    }
+
+    /**
+     * @param Media $media
+     */
+    public function setBgImage(?Media $bg_image)
+    {
+        $this->bg_image = $bg_image;
     }
 
     public function getConfig()

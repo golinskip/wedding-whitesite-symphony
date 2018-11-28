@@ -1,0 +1,20 @@
+{# 
+    block_template: twig file
+    block_data: block data from page_block entity
+    data: block data for provided type
+#}
+<!-- container -->
+{% spaceless %}
+    <div class="container{% if (block_data.blockStyle == 1 or block_data.blockStyle == 2) %}-fluid{% endif %} wws-container wws-public-container" style="
+    {% if block_data.bgImage is not null %}
+        background-image: url('{% path block_data.bgImage, 'reference' %}');
+        background-size:cover;
+        background-position: center center;
+    {% endif %}
+    ">
+{% endspaceless %}
+    {% if (block_data.blockStyle == 1) %}<div class="container">{% endif %}
+        {% include block_template %}
+    {% if (block_data.blockStyle == 1) %}</div>{% endif %}
+</div>
+<!-- /.container -->

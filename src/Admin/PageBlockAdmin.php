@@ -14,6 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\CoreBundle\Form\Type\DateTimePickerType;
 use App\BlockManager\Services\BlockService;
+use Sonata\CoreBundle\Form\Type\ColorType;
+use Sonata\AdminBundle\Form\Type\ModelListType;
+use App\Entity\PageBlock;
 
 
 class PageBlockAdmin extends AbstractAdmin
@@ -50,12 +53,37 @@ class PageBlockAdmin extends AbstractAdmin
             $formClass = $blockService->getFormClass();
 
             $formMapper
-                ->add('title', TextType::class)
-                ->add('type', HiddenType::class)
-                ->add('is_enabled')
-                ->add('config', $formClass, [
-                    'label' => false,
-                ])
+                ->with('Content', ['class' => 'col-md-7'])
+                    ->add('config', $formClass, [
+                        'label' => false,
+                    ])
+                ->end()
+                ->with('Setup', ['class' => 'col-md-5'])
+                    ->add('title', TextType::class)
+                    ->add('type', HiddenType::class)
+                    ->add('is_enabled')
+                    ->add('block_style', ChoiceType::class, [
+                        'choices' => PageBlock::getStyles(),
+                    ])
+                    ->add('bg_color', ColorType::class, [
+                        'required' => false,
+                    ])
+                    ->add('bg_image', 'sonata_type_model_list', ['required' => false], array(
+                        'link_parameters' => [
+                            'context' => 'default'
+                        ]
+                    ))
+                    ->add('bg_image', ModelListType::class, [
+                        'required' => false,
+                    ])
+                    ->add('start_publish_at', DateTimePickerType::class, [
+                        'required' => false,
+                    ])
+                    ->add('stop_publish_at', DateTimePickerType::class, [
+                        'required' => false,
+                    ])
+
+                ->end()
                 ;
         }
     }

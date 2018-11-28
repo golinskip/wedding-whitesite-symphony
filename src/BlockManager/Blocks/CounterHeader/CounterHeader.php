@@ -5,49 +5,161 @@ namespace App\BlockManager\Blocks\CounterHeader;
 use App\BlockManager\Base\BlockModelInterface;
 
 class CounterHeader implements BlockModelInterface {
-
-    public $title;
     
-    public $decription;
+    /**
+     * custom description on top of counter
+     *
+     * @var string
+     */
+    private $description;
 
-    public $weddingDate;
+    /**
+     * Wedding date
+     *
+     * @var \DateTime
+     */
+    private $weddingDate;
 
-    public $isShowCounter;
+    /**
+     * Text after counter
+     *
+     * @var string
+     */
+    private $textAfterCounter;
+
+    /**
+     * Text before counter
+     *
+     * @var string
+     */
+    private $textBeforeCounter;
+
+    /**
+     * Text on complete
+     *
+     * @var string
+     */
+    private $textOnComplete;
     
-    public function getTitle() {
-        return $this->title;
+
+
+    /**
+     * Get text after counter
+     *
+     * @return  string
+     */ 
+    public function getTextAfterCounter()
+    {
+        return $this->textAfterCounter;
     }
 
-    public function getDescription() {
-        return (string) $this->decription;
+    /**
+     * Set text after counter
+     *
+     * @param  string  $textAfterCounter  Text after counter
+     *
+     * @return  self
+     */ 
+    public function setTextAfterCounter(string $textAfterCounter)
+    {
+        $this->textAfterCounter = $textAfterCounter;
+
+        return $this;
     }
 
-    public function getWeddingDate() {
+    /**
+     * Get text before counter
+     *
+     * @return  string
+     */ 
+    public function getTextBeforeCounter()
+    {
+        return $this->textBeforeCounter;
+    }
+
+    /**
+     * Set text before counter
+     *
+     * @param  string  $textBeforeCounter  Text before counter
+     *
+     * @return  self
+     */ 
+    public function setTextBeforeCounter(string $textBeforeCounter)
+    {
+        $this->textBeforeCounter = $textBeforeCounter;
+
+        return $this;
+    }
+
+    /**
+     * Get text on complete
+     *
+     * @return  string
+     */ 
+    public function getTextOnComplete()
+    {
+        return $this->textOnComplete;
+    }
+
+    /**
+     * Set text on complete
+     *
+     * @param  string  $textOnComplete  Text on complete
+     *
+     * @return  self
+     */ 
+    public function setTextOnComplete(string $textOnComplete)
+    {
+        $this->textOnComplete = $textOnComplete;
+
+        return $this;
+    }
+
+    /**
+     * Get wedding date
+     *
+     * @return  \DateTime
+     */ 
+    public function getWeddingDate()
+    {
         return $this->weddingDate;
     }
 
-    public function getIsShowCounter() {
-        return $this->isShowCounter;
-    }
-
-    public function setTitle($title) {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function setDescription($decription) {
-        $this->decription = $decription;
-        return $this;
-    }
-
-    public function setWeddingDate($weddingDate) {
+    /**
+     * Set wedding date
+     *
+     * @param  \DateTime  $weddingDate  Wedding date
+     *
+     * @return  self
+     */ 
+    public function setWeddingDate(\DateTime $weddingDate)
+    {
         $this->weddingDate = $weddingDate;
+
         return $this;
     }
 
-    public function setIsShowCounter($isShowCounter) {
-        $this->isShowCounter = $isShowCounter;
-        return $this;
+    /**
+     * Get custom description on top of counter
+     *
+     * @return  string
+     */ 
+    public function getDescription()
+    {
+        return $this->description;
     }
 
+    /**
+     * Set custom description on top of counter
+     *
+     * @param  string  $description  custom description on top of counter
+     *
+     * @return  self
+     */ 
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 }

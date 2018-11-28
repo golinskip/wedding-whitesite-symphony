@@ -29,6 +29,7 @@ class IndexController extends AbstractController
         $blockProvider = $homePage->createBlockProvider();
 
         return $this->render('public_site/index/index.html.twig', [
+            'page' => $homePage,
             'blockProvider' => $blockProvider
         ]);
     }

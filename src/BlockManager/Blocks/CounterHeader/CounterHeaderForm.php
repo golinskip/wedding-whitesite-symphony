@@ -17,13 +17,17 @@ class CounterHeaderForm extends AbstractType {
     
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('title', TextType::class)
-            ->add('description', CKEditorType::class)
-            //->add('description', TextType::class)
             ->add('weddingDate', DateTimePickerType::class, [
                 'dp_side_by_side' => true,
             ])
-            ->add('isShowCounter', CheckboxType::class, [
+            ->add('description', CKEditorType::class)
+            ->add('textAfterCounter', TextType::class, [
+                'required' => false,
+            ])
+            ->add('textBeforeCounter', TextType::class, [
+                'required' => false,
+            ])
+            ->add('textOnComplete', TextType::class, [
                 'required' => false,
             ])
             ;
