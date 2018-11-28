@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\CoreBundle\Form\Type\DateTimePickerType;
@@ -30,37 +31,32 @@ class PageBlockAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $blockList = $this->blockService->getBlockList();
-        
-        $formMapper
-            ->add('title', TextType::class)
-        ;
 
         $pageBlock = $this->getSubject();
     
         if (!$pageBlock || null === $pageBlock->getId()) {
             $formMapper
+                ->add('title', TextType::class)
                 ->add('type', ChoiceType::class, [
                     'choices'  => $blockList,
                 ])
             ;
         } else {
             $type = $pageBlock->getType();
-            $formMapper
-                ->add('type', ChoiceType::class, [
-                    'choices'  => $blockList,
-                    'disabled' => true,
-                ])
-                ->add('is_enabled')
-            ;
             $blockService = $this->blockService->getManager($type);
             if($pageBlock->getConfig() === null) {
                 $pageBlock->setConfig($blockService->createObject());
             }
-
             $formClass = $blockService->getFormClass();
-            $formMapper->add('config', $formClass, [
-                'label' => false,
-            ]);
+
+            $formMapper
+                ->add('title', TextType::class)
+                ->add('type', HiddenType::class)
+                ->add('is_enabled')
+                ->add('config', $formClass, [
+                    'label' => false,
+                ])
+                ;
         }
     }
 

@@ -1,0 +1,7 @@
+<div class="jumbotron wws-block-counter-header">
+    <h1>{{ data.title }}</h1>
+    {% if data.description %}
+        <p>{{ data.description }}</p>
+    {% endif %}
+    <p>{{ data.weddingDate|date('Y-m-d H:i:s') }}</p>
+</div>

@@ -1,0 +1,51 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+# fos_ck_editor:
+#     default_config: default
+#     configs:
+#         default:
+#             filebrowserBrowseRoute: admin_sonata_media_media_browser
+#             filebrowserImageBrowseRoute: admin_sonata_media_media_browser
+#             # Display images by default when clicking the image dialog browse button
+#             filebrowserImageBrowseRouteParameters:
+#                 provider: sonata.media.provider.image
+#             filebrowserUploadRoute: admin_sonata_media_media_upload
+#             filebrowserUploadRouteParameters:
+#                 provider: sonata.media.provider.file
+#             # Upload file as image when sending a file from the image dialog
+#             filebrowserImageUploadRoute: admin_sonata_media_media_upload
+#             filebrowserImageUploadRouteParameters:
+#                 provider: sonata.media.provider.image
+#                 #context: my-context # Optional, to upload in a custom context
+fos_ck_editor:
+    input_sync: true
+
+    default_config: default
+    configs:
+        default:
+            toolbar: 'default_toolbar'
+            uiColor: '#ffffff'
+            baseFloatZIndex: 9000
+            filebrowserBrowseRoute: admin_sonata_media_media_browser
+            filebrowserImageBrowseRoute: admin_sonata_media_media_browser
+            # Display images by default when clicking the image dialog browse button
+            filebrowserImageBrowseRouteParameters:
+                provider: sonata.media.provider.image
+            filebrowserUploadRoute: admin_sonata_media_media_upload
+            filebrowserUploadRouteParameters:
+                provider: sonata.media.provider.file
+            # Upload file as image when sending a file from the image dialog
+            filebrowserImageUploadRoute: admin_sonata_media_media_upload
+            filebrowserImageUploadRouteParameters:
+                provider: sonata.media.provider.image
+
+    toolbars:
+        configs:
+            default_toolbar: [ "@document", "/", "@link" , "/", "@combo" ]
+        items:
+            document: [ "Source", "Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "-", "Undo", "Redo", "-", "Bold", "Italic", "Underline", "Strike", "-", "NumberedList", "BulletedList", "-", "Outdent", "Indent", "-", "Blockquote", "CreateDiv", "-", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock" ]
+            link: [ "Link", "Unlink", "Anchor", "-", "Image", "Table", "HorizontalRule", "SpecialChar", "Smiley" ]
+            combo: [ "Styles", "Format", "Font", "FontSize", "TextColor", "BGColor", "ShowBlocks", "Maximize" ]

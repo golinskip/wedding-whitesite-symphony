@@ -6,3 +6,9 @@ block_manager:
             manager: App\BlockManager\Blocks\TextBlock\TextBlockManager
             model: App\BlockManager\Blocks\TextBlock\TextBlock
             form: App\BlockManager\Blocks\TextBlock\TextBlockForm
+        counter_header:
+            tag: block.counter_header
+            name: Counter header
+            manager: App\BlockManager\Blocks\CounterHeader\CounterHeaderManager
+            model: App\BlockManager\Blocks\CounterHeader\CounterHeader
+            form: App\BlockManager\Blocks\CounterHeader\CounterHeaderForm

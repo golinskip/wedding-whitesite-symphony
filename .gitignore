@@ -13,3 +13,4 @@ composer.lock
 /public/img
 /public/fonts
 /public/vendor
+/nbproject

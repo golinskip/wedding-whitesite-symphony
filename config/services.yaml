@@ -113,3 +113,8 @@ services:
     App\EventListener\PageDataGuard:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    App\Form\Type\ImageFormMediaType:
+        arguments: ['@twig', '@event_dispatcher']
+        tags:
+            - { name: form.type, alias: acmefile }
