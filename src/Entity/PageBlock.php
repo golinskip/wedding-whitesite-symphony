@@ -345,6 +345,17 @@ class PageBlock
     }
 
     /**
+     * @ORM\PreUpdate
+     * @ORM\PrePersist
+     */
+    public function autoUpdatedAt(): self
+    {
+        $this->updated_at = new \DateTime();
+
+        return $this;
+    }
+
+    /**
      * @ORM\PrePersist
      */
     public function autoCreatedAt(): self
@@ -370,17 +381,6 @@ class PageBlock
     public function autoPosition(): self
     {
         $this->position = 0;
-
-        return $this;
-    }
-
-    /**
-     * @ORM\PreUpdate
-     * @ORM\PrePersist
-     */
-    public function autoUpdatedAt(): self
-    {
-        $this->updated_at = new \DateTime();
 
         return $this;
     }

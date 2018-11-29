@@ -81,9 +81,17 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Content, label: PageBlock }
         public: true
 
+    admin.news:
+        class: App\Admin\NewsAdmin
+        arguments: [~, App\Entity\News, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Content, label: News }
+        public: true
+
     # Manager of block
     block.service:
         class: App\BlockManager\Services\BlockService
+        arguments: ['@service_container']
 
     invitation.auhenticator:
         class: App\Security\InvitationProvider

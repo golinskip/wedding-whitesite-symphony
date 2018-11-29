@@ -18,3 +18,9 @@ block_manager:
             manager: App\BlockManager\Blocks\GoogleMaps\GoogleMapsManager
             model: App\BlockManager\Blocks\GoogleMaps\GoogleMaps
             form: App\BlockManager\Blocks\GoogleMaps\GoogleMapsForm
+        news_block:
+            tag: block.news_block
+            name: NewsBlock
+            manager: App\BlockManager\Blocks\NewsBlock\NewsBlockManager
+            model: App\BlockManager\Blocks\NewsBlock\NewsBlock
+            form: App\BlockManager\Blocks\NewsBlock\NewsBlockForm

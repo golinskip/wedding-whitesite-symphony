@@ -4,10 +4,14 @@ namespace App\BlockManager;
 
 use App\BlockManager\Base\BlockModelInterface;
 use App\BlockManager\BlocksManager;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class BlockProvider {
     private $blockList = [];
+
     private $blockTags = [];
+
+    private $blockTwigParams = [];
 
     protected $blockPointer = 0;
 
@@ -15,9 +19,17 @@ class BlockProvider {
 
     protected $blocksManager;
 
+    private $container;
+
+    private $attr;
+
     public function pushBlock(string $blockTag, BlockModelInterface $blockObj):self {
         $this->blockTags[$this->blockNextIndex] = $blockTag;
         $this->blockList[$this->blockNextIndex] = $blockObj;
+        $this->blockTwigParams[$this->blockNextIndex] = 
+            $this->blocksManager->getManager($blockTag)->getTwigParams(
+                $blockObj, $this->container, $this->attr
+            );
         $this->blockNextIndex++;
         return $this;
     }
@@ -53,6 +65,13 @@ class BlockProvider {
         return $this->blockTags[$this->blockPointer];
     }
 
+    public function getCurrentTwigParams() {
+        if($this->isEnd()) {
+            return null;
+        }
+        return $this->blockTwigParams[$this->blockPointer];
+    }
+
     public function isEnd() {
         return($this->blockPointer === $this->blockNextIndex);
     }
@@ -75,7 +94,12 @@ class BlockProvider {
         return "";
     }
 
-    public function __construct() {
+    public function setAttr($attr) {
+        $this->attr = $attr;
+    }
+
+    public function __construct(Container $container) {
+        $this->container = $container;
         $this->blocksManager = new BlocksManager;
     }
 }

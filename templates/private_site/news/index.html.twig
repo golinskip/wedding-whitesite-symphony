@@ -1,0 +1,7 @@
+{% extends 'private_site/base.html.twig' %}
+
+{% block content %}
+<div class="container wws-articles-container">
+    {% include 'both/news/list.html.twig' with {'news_path': 'private_news_single'} %}
+</div>
+{% endblock %}

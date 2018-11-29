@@ -1,0 +1,12 @@
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="title">{{ news.title }}</h3>
+            <p class="text-muted">{{ news.startPublishAt|date('l, d F Y @ H:i') }}</p>
+            <hr>
+            <p>{{ news.content|raw }}</p>
+            {% if news.author %}
+            <p class="text-muted">Author by <b>{{ news.author }}</b></p>
+            {% endif %}
+        </div>
+    </div>

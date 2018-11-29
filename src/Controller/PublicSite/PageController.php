@@ -9,6 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpKernel\Exception\HttpNotFoundException;
 use App\Form\PublicSite\LoginForm;
 use App\BlockManager\Services\BlockService;
+use App\BlockManager\Base\BlockModelInterface;
 use App\Entity\Page;
 
 class PageController extends AbstractController
@@ -26,11 +27,22 @@ class PageController extends AbstractController
             throw new HttpNotFoundException('Site not found');
         }
 
-        $blockProvider = $Page->createBlockProvider();
+        $BlockService = $this->container->get('block.service');
+        $BlockService->setAttr('env', 'public');
+        $BlockProvider = $BlockService->getBlockProvider();
+
+        foreach($Page->getPageBlocks() as $pageBlock) {
+            if($pageBlock->getShowable()) {
+                $blockObj = $pageBlock->getConfig();
+                if($blockObj instanceof BlockModelInterface) {
+                    $BlockProvider->pushBlock($pageBlock->getType(), $blockObj);
+                }
+            }
+        }
 
         return $this->render('public_site/page/index.html.twig', [
             'page' => $Page,
-            'blockProvider' => $blockProvider
+            'blockProvider' => $BlockProvider
         ]);
     }
 

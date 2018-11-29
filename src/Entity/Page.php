@@ -7,8 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use voku\helper\URLify;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-use App\BlockManager\BlockProvider;
-use App\BlockManager\Base\BlockModelInterface;
 
 /**
  * @ORM\HasLifecycleCallbacks()
@@ -356,20 +354,6 @@ class Page
             return "New Page";
         }
         return $this->getTitle();
-    }
-
-    public function createBlockProvider(): BlockProvider {
-        $provider = new BlockProvider;
-        foreach($this->getPageBlocks() as $pageBlock) {
-            if(!$pageBlock->getShowable()) {
-                continue;
-            }
-            $blockObj = $pageBlock->getConfig();
-            if($blockObj instanceof BlockModelInterface) {
-                $provider->pushBlock($pageBlock->getType(), $blockObj);
-            }
-        }
-        return $provider;
     }
 
     /**

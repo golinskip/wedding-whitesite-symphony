@@ -1,0 +1,7 @@
+    {% if blockProvider.count > 0 %}
+        {% for blck in page.pageBlocks %}
+            {% if blck.showable %}
+                {% include 'both/blocks/block.html.twig' with { 'block_template' : blockProvider.currentTypeManager.twigTemplate, 'block_template_params': blockProvider.currentTwigParams, 'block_data' : blck, 'data': blockProvider.objNext} %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}

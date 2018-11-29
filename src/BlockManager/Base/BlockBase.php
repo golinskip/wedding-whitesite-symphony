@@ -3,10 +3,14 @@
 namespace App\BlockManager\Base;
 
 use App\BlockManager\Base\BlockInterface;
+use App\BlockManager\Base\BlockModelInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 abstract class BlockBase implements BlockInterface
 {
     protected $config;
+
+    protected $params;
 
     public function createObject() {
         $className = $this->config['model'];
@@ -26,4 +30,10 @@ abstract class BlockBase implements BlockInterface
     public function __construct($config) {
         $this->config = $config;
     }
+
+    public function getTwigParams(BlockModelInterface $model, Container $container, $attr) {
+        return $attr;
+    }
+
+    abstract public function getTwigTemplate();
 }

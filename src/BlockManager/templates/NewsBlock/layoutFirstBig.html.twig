@@ -1,0 +1,41 @@
+{% for news in news_list %}
+    {% if loop.first %}
+        <div class="row">
+            <div class="col-sm-4">
+                {% if news.image %}
+                <a href="{{ path(news_path, {'slug': news.urlName}) }}" class=""><img src="{% path news.image, 'big' %}" class="img-thumbnail"></a>
+                {% endif %}
+            </div>
+            <div class="col-sm-8">
+                <h3 class="title">
+                    <a href="{{ path(news_path, {'slug': news.urlName}) }}" class="">
+                        {{ news.title }}
+                    </a>
+                </h3>
+                {% if data.showDate %}
+                <span class="text-muted">{{ news.startPublishAt|date('l, d F Y @ H:i') }}</span>
+                {% endif %}
+                <p>{{ news.lead }}</p>
+                {% if news.author and data.showAuthor %}
+                <p class="text-muted">by <b>{{ news.author }}</b></p>
+                {% endif %}
+                <p><a href="{{ path(news_path, {'slug': news.urlName}) }}">{{ data.textReadMore }} &raquo;</a></p>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-md-12">
+                {% if data.showDate %}
+                <span class="text-muted">{{ news.startPublishAt|date('l, d F Y @ H:i') }}</span>
+                {% endif %}
+                {% if news.author and data.showAuthor %}
+                <span class="text-muted"> by <b>{{ news.author }}</b></span>
+                {% endif %}
+                <p><b>{{ news.title }}</b> <a href="{{ path(news_path, {'slug': news.urlName}) }}">{{ data.textReadMore }} &raquo;</a></p>
+            </div>
+        </div>
+    {% endif %}
+    {% if not loop.last %}
+        <hr>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,27 @@
+
+{# Provide NewsBlock model class as data #}
+<div class="wws-block-news_block">
+    {% if news_list is empty %}
+        {{ data.textNoNews }}
+    {% else %}
+        {% if data.layout == 0 %}
+            {% include '@BlockManagerTemplates/NewsBlock/layoutFirstBig.html.twig' %}
+        {% elseif data.layout == 1 %}
+            {% include '@BlockManagerTemplates/NewsBlock/layoutTwoColumns.html.twig' %}
+        {% elseif data.layout == 2 %}
+            {% include '@BlockManagerTemplates/NewsBlock/layoutAllBig.html.twig' %}
+        {% endif %}
+    {% endif %}
+    {% if data.showMoreNews %}
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <p class="pull-right">
+                <a href={{ path(news_list_path) }}>
+                    {{ data.textMoreNews }} &raquo;
+                </a>
+            </p>
+        </div>
+    </div>
+    {% endif %}
+</div>

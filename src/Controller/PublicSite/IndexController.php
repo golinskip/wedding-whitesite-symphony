@@ -9,6 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpKernel\Exception\HttpNotFoundException;
 use App\Form\PublicSite\LoginForm;
 use App\BlockManager\Services\BlockService;
+use App\BlockManager\Base\BlockModelInterface;
 use App\Entity\Page;
 
 class IndexController extends AbstractController
@@ -26,11 +27,22 @@ class IndexController extends AbstractController
             throw new HttpNotFoundException('Home site not found');
         }
 
-        $blockProvider = $homePage->createBlockProvider();
+        $BlockService = $this->container->get('block.service');
+        $BlockService->setAttr('env', 'public');
+        $BlockProvider = $BlockService->getBlockProvider();
+
+        foreach($homePage->getPageBlocks() as $pageBlock) {
+            if($pageBlock->getShowable()) {
+                $blockObj = $pageBlock->getConfig();
+                if($blockObj instanceof BlockModelInterface) {
+                    $BlockProvider->pushBlock($pageBlock->getType(), $blockObj);
+                }
+            }
+        }
 
         return $this->render('public_site/index/index.html.twig', [
             'page' => $homePage,
-            'blockProvider' => $blockProvider
+            'blockProvider' => $BlockProvider
         ]);
     }
 
