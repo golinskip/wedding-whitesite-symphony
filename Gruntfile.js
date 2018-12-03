@@ -38,7 +38,7 @@ module.exports = function (grunt) {
         copy: {
             main: {
                 files: [
-                    {expand: true, src: "src_web/js/**", dest: "public/js"},
+                    {expand: true, flatten:true, filter: 'isFile', src: "src_web/js/**", dest: "public/js"},
                     {expand: true, src: "src_web/img/**", dest: "public/img"}
                 ]
             }

@@ -1,0 +1,36 @@
+{% set status = form.status.vars.value %}
+{% set presence = 'undefined' %}
+{% if status == 0 %}
+    {% set icon = 'question' %}
+    {% set presence = 'undefined' %}
+{% endif %}
+{% if status == 1 %}
+    {% set icon = 'smile-o' %}
+    {% set presence = 'present' %}
+{% endif %}
+{% if status == 2 %}
+    {% set icon = 'frown-o' %}
+    {% set presence = 'absent' %}
+{% endif %}
+<div class="person-row">
+  <div>
+    <div class="col-sm-12">
+        <div class="input-group input-group-md presence-{{presence}}">
+            
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fa fa-{{icon}}"></i>
+                </span>
+            </div>
+            {{ form_widget(form.name) }}
+            {{ form_widget(form.status, { 'attr' : {'class' : 'person-status'}}) }}
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="person-parameters" style="{% if status != 1 %}display:none;{% endif %}">
+            {{ form_widget(form.parameterValues) }}
+        </div>
+        <hr/>
+    </div>
+  </div>
+</div>

@@ -37,9 +37,12 @@ class DashboardController extends AbstractController
             }
         }
 
+        $invitation = $this->getUser();
+
         return $this->render('private_site/dashboard/index.html.twig', [
             'page' => $homePage,
-            'blockProvider' => $BlockProvider
+            'blockProvider' => $BlockProvider,
+            'invitation' => $invitation,
         ]);
     }
 

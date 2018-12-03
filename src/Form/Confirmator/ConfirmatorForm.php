@@ -24,7 +24,9 @@ class ConfirmatorForm extends AbstractType {
                 'allow_delete' => false,
                 'required'     => false,
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => 'confirmator.form.submit'
+            ])
             ;
     }
     

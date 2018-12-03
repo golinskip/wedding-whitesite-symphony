@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use voku\helper\URLify;
 use App\Helpers\ValueGenerator;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\Person;
 
 /**
  * @ORM\HasLifecycleCallbacks()
@@ -295,5 +296,38 @@ class Invitation implements UserInterface
             return "New Invitation";
         }
         return $this->getName();
+    }
+
+    const ST_UNCONFIRMED = 0;
+    const ST_ALL_PRES = 1;
+    const ST_PART_PRES = 2;
+    const ST_ALL_ABS = 3;
+    /**
+     * 0 - unconfirmed exists
+     * 1 - all presents
+     * 2 - partially presents
+     * 3 - all absent
+     *
+     * @return void
+     */
+    public function getPartialStatus() {
+        $ret = -1;
+        foreach($this->getPeople() as $Person) {
+            if($Person->getStatus() == Person::STATUS_UNDEFINED) {
+                return self::ST_UNCONFIRMED;
+            }
+            if($ret == self::ST_PART_PRES) {
+                continue;
+            }
+            if($ret == self::ST_ALL_PRES  && $Person->getStatus() == Person::STATUS_ABSENT || 
+               $ret == self::ST_ALL_ABS && $Person->getStatus() == Person::STATUS_PRESENT ) {
+                $ret = self::ST_PART_PRES;
+            } else if($Person->getStatus() == Person::STATUS_ABSENT) {
+                $ret = self::ST_ALL_ABS;
+            } else {
+                $ret = self::ST_ALL_PRES;
+            }
+        }
+        return $ret;
     }
 }

@@ -8,3 +8,38 @@ blocks:
         mt: minuta
         sds: sekund
         sd: sekunda
+confirmator:
+    title: Potwierdź obecność
+    instructions:
+        - "Wpisz lub popraw imię i nazwisko osób, jeśli się nie zgadza"
+        - "Określ, czy dana osoba będzie obecna, klikając na przycisk obok imienia i nazwiska"
+        - "W przypadku osób obecnych wypełnij formularz, który pojawi się poniżej"
+    form:
+        submit: Zapisz
+        persons: Osoby
+        person:
+            name: "Imię i nazwisko"
+            statuses: "Czy będzie?"
+            status:
+                present: Obecny
+                absent: Nieobecny
+                undefined: "Nie wiem"
+            parameters: Parametry
+dashboard:
+    invitation: "Serdecznie witamy w naszym panelu,"
+    buttons:
+        confirm: Potwierdź obecność
+        contact: Dane kontaktowe
+    reactions:
+        undefined:
+            title: Uwaga!
+            text:  Są jeszcze osoby, które nie potwierdziły obecności
+        all:
+            title: Drodzy goście,
+            text: cieszymy się, że będziecie z nami w tym wspaniałym dniu!
+        part:
+            title: Drodzy goście,
+            text: cieszymy się, że chociaż częściowo będziecie z nami w tym wspaniałym dniu!
+        none:
+            title: Drodzy goście,
+            text: bardzo żałujemy, że nie będzie Was z nami.

@@ -66,6 +66,7 @@ class InvitationAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('name')
+            ->add('code')
             ->addIdentifier('invitationGroup.name')
             ->add('_action', null, [
                 'actions' => [

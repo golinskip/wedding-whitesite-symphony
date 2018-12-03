@@ -1,0 +1,45 @@
+$colPre1:#155724;
+$colPre2:#d4edda;
+$colPre3:#c3e6cb;
+$colAbs1:#721c24;
+$colAbs2:#f8d7da;
+$colAbs3:#f5c6cb;
+$colUnd1:#8a6d3b;
+$colUnd2:#fcf8e3;
+$colUnd3:#faebcc;
+
+
+
+.presence-present {
+    .form-control {
+        color: $colPre1;
+        border-color: $colPre3;
+    }
+    .input-group-text {
+        color: $colPre1;
+        background-color: $colPre2;
+        border-color: $colPre3;
+    }
+}
+.presence-absent {
+    .form-control {
+        color: $colAbs1;
+        border-color: $colAbs3;
+    }
+    .input-group-text {
+        color: $colAbs1;
+        background-color: $colAbs2;
+        border-color: $colAbs3;
+    }
+}
+.presence-undefined {
+    .form-control {
+        color: $colUnd1;
+        border-color: $colUnd3;
+    }
+    .input-group-text {
+        color: $colUnd1;
+        background-color: $colUnd2;
+        border-color: $colUnd3;
+    }
+}

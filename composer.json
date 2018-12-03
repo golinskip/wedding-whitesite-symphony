@@ -39,7 +39,8 @@
     "require-dev": {
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.9",
-        "symfony/profiler-pack": "^1.0"
+        "symfony/profiler-pack": "^1.0",
+        "symfony/var-dumper": "4.1.*"
     },
     "config": {
         "preferred-install": {

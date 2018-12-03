@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Person;
@@ -18,9 +19,9 @@ class ConfirmatorPersonForm extends AbstractType {
             ->add('name', TextType::class)
             ->add('status', ChoiceType::class, [
                 'choices'  => [
-                    Person::STATUS_PRESENT,
-                    Person::STATUS_ABSENT,
-                    Person::STATUS_UNDEFINED,
+                    'confirmator.form.person.status.present' => Person::STATUS_PRESENT,
+                    'confirmator.form.person.status.absent' => Person::STATUS_ABSENT,
+                    'confirmator.form.person.status.undefined' => Person::STATUS_UNDEFINED,
                 ],
             ])
             ->add('parameterValues', CollectionType::class, [

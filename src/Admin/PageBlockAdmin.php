@@ -68,6 +68,7 @@ class PageBlockAdmin extends AbstractAdmin
                     ])
                     ->add('bg_color', ColorType::class, [
                         'required' => false,
+                        'data' => '#ffffff',
                     ])
                     ->add('bg_image', 'sonata_type_model_list', ['required' => false], array(
                         'link_parameters' => [

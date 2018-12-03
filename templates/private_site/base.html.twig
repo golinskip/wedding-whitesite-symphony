@@ -2,5 +2,7 @@
 
 {% block body %}
     {% include 'private_site/navbar.html.twig' %}
+    {% include 'flashbag.html.twig' %}
     {% block content %}{% endblock %}
+    {% include 'both/footer.html.twig' %}
 {% endblock %}
