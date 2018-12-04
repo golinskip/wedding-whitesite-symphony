@@ -8,3 +8,5 @@ twig:
         - '@SonataCore/Form/color.html.twig'
     paths:
         '%kernel.project_dir%/src/BlockManager/templates': BlockManagerTemplates
+    globals:
+        config: "@app.config"

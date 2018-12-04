@@ -88,6 +88,17 @@ services:
             - { name: sonata.admin, manager_type: orm, group: Content, label: News }
         public: true
 
+
+    admin.setup:
+        class: App\Admin\SetupAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Setup, label: Setup }
+        arguments:
+            - null
+            - null
+            - App\Controller\Admin\ConfigController
+        public: true
+
     # Manager of block
     block.service:
         class: App\BlockManager\Services\BlockService
@@ -95,6 +106,12 @@ services:
 
     invitation.auhenticator:
         class: App\Security\InvitationProvider
+        arguments: [ "@doctrine.orm.entity_manager" ]
+
+
+    app.config:
+        public: true
+        class: App\Services\ConfigService
         arguments: [ "@doctrine.orm.entity_manager" ]
 
     # External bundles 

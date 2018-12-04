@@ -37,6 +37,7 @@
         "voku/urlify": "^4.0"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.9",
         "symfony/profiler-pack": "^1.0",
