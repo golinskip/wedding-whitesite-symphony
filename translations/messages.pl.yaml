@@ -43,3 +43,12 @@ dashboard:
         none:
             title: Drodzy goście,
             text: bardzo żałujemy, że nie będzie Was z nami.
+config:
+    wedding:
+        group: Ślub
+        date: Data ślubu
+        name: Imiona i nazwiska państwa młodych
+    general:
+        group: Ogólne
+        title: Tytuł strony
+        navbar_show_login: Pokaż panel logowania na pasku menu

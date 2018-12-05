@@ -3,71 +3,168 @@ namespace App\Services;
 
 use Doctrine\ORM\EntityManager;
 use App\Entity\Config;
+use Symfony\Component\Yaml\Yaml;
+use App\Services\ConfigConfiguration;
+use Symfony\Component\Config\Definition\Processor;
 
 class ConfigService {
 
     private $em;
 
-    private $config;
+    private $values;
 
-    public function __construct(EntityManager $em) {
-        $this->em = $em;
-        $this->load();
-    }
+    private $configYaml;
 
-    public function load() {
-        $this->config = $this->em
-            ->getRepository(Config::class)
-            ->findAll();
-    }
+    private $configObject;
 
-    public function getObject() {
+    /**
+     * Creating object with config
+     *
+     * @return void
+     */
+    public function createObject() {
         $arr = [];
-        foreach($this->config as $configRow) {
-            switch($configRow->getType()) {
+        $notExistedObjs = [];
+        foreach($this->configYaml['vars'] as $name => $configRow) {
+            // Create config if not exists in database
+            $currentConfigObj = null;
+            foreach($this->values as $configObj) {
+                if($configObj->getName() == $name) {
+                    $currentConfigObj = $configObj;
+                    break;
+                }
+            }
+            if($currentConfigObj === null) {
+                $currentConfigObj = new Config;
+                if(isset($configRow['default'])) {
+                    $currentConfigObj->setValue((string)$configRow['default']);
+                }
+                $currentConfigObj->setName($name);
+                $notExistedObjs[] = $currentConfigObj;
+            }
+            switch($configRow['type']) {
                 case \DateTime::class:
-                    $val = new \DateTime($configRow->getValue());
+                    $val = new \DateTime($currentConfigObj->getValue());
                     break;
                 default:
-                    $val = $configRow->getValue();
-                    settype($val, $configRow->getType());
+                    $val = $currentConfigObj->getValue();
+                    settype($val, $configRow['type']);
             }   
-            $arr[$configRow->getName()] = $val;
+            $arr[$name] = $val;
         }
-        return (object)$arr;
+        if($notExistedObjs !== []) {
+            foreach ($notExistedObjs as &$obj) {
+                $this->em->persist($obj);
+            }
+            $this->em->flush();
+        }
+        $this->configObject = (object)$arr;
+        return $this->configObject;
     }
 
+    /**
+     * Returns object with configs
+     *
+     * @return object
+     */
+    public function getObject() {
+        if($this->configObject == null) {
+            return $this->createObject();
+        }
+        return $this->configObject;
+    }
+
+    /**
+     * Returns config
+     *
+     * @param [type] $formBuilder
+     * @return void
+     */
     public function createForm($formBuilder) {
-        foreach($this->config as $configRow) {
-            $options = $configRow->getFormOptions();
+        foreach($this->configYaml['vars'] as $name => $configRow) {
+            $options = $configRow['form_options'] ?? [];
             if(!isset($options['label'])) {
-                $options['label'] = $configRow->getDescription();
+                $options['label'] = $configRow['label'];
             }
-            $formBuilder->add($configRow->getName(), $configRow->getFormType(), $options);
+            $formBuilder->add($name, $configRow['form_type'], $options);
         }
         return $formBuilder->getForm();
     }
 
+    /**
+     * Save variables to database
+     *
+     * @param object $obj
+     * @return void
+     */
     public function updateObject(object $obj) {
-        foreach($this->config as $configRow) {
-            if(isset($obj->{$configRow->getName()})) {
-
-                switch($configRow->getType()) {
+        foreach($this->configYaml['vars'] as $name => $configRow) {
+            $currentConfigObj = null;
+            foreach($this->values as $configObj) {
+                if($configObj->getName() == $name) {
+                    $currentConfigObj = $configObj;
+                    break;
+                }
+            }
+            if(isset($obj->{$name})) {
+                switch($configRow['type']) {
                     case \DateTime::class:
-                        $configRow->setValue($obj->{$configRow->getName()}->format('Y-m-d H:i:s'));
+                        $currentConfigObj->setValue($obj->{$name}->format('Y-m-d H:i:s'));
                         break;
                     default:
-                        $configRow->setValue($obj->{$configRow->getName()});
-                }                
-                $this->em->persist($configRow);
+                        $currentConfigObj->setValue($obj->{$name});
+                } 
+                $this->em->persist($currentConfigObj);
             }
         }
         $this->em->flush();
         return true;
     }
 
+    /**
+     * Return current config
+     *
+     * @return void
+     */
     public function getConfig() {
-        return $this->config;
+        return $this->configObject;
+    }
+
+    public function __construct(EntityManager $em) {
+        $this->em = $em;
+        $this->load();
+    }
+
+    /**
+     * Load data
+     *
+     * @return void
+     */
+    public function load() {
+        $this->values = $this->em
+            ->getRepository(Config::class)
+            ->findAll();
+        $this->loadConfigYaml();
+    }
+
+    /**
+     * Load configuration from yaml file
+     *
+     * @return void
+     */
+    public function loadConfigYaml() {
+        $configFile = __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml';
+        $config = Yaml::parse(
+            file_get_contents($configFile)
+        );
+        
+        $processor = new Processor();
+        $configConfiguration = new ConfigConfiguration();
+        $processedConfiguration = $processor->processConfiguration(
+            $configConfiguration,
+            $config
+        );
+        $this->configYaml = $processedConfiguration;
     }
 
 }

@@ -1,0 +1,33 @@
+config:
+    vars:
+        event_date:
+            type: DateTime
+            form_type: Sonata\CoreBundle\Form\Type\DateTimePickerType
+            group: config.wedding.group
+            label: config.wedding.date
+            show: true
+        page_title:
+            type: string
+            form_type: Symfony\Component\Form\Extension\Core\Type\TextType
+            form_options:
+                required: false
+            group: config.general.group
+            label: config.general.title
+            show: true
+        navbar_show_login:
+            type: boolean
+            form_type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+            form_options:
+                required: false
+            group: config.general.group
+            label: config.general.navbar_show_login
+            default: true
+            show: true
+        newlyweds:
+            type: string
+            form_type: Symfony\Component\Form\Extension\Core\Type\TextType
+            form_options:
+                required: false
+            group: config.wedding.group
+            label: config.wedding.name
+            show: true
