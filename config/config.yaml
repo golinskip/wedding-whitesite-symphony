@@ -31,3 +31,9 @@ config:
             group: config.wedding.group
             label: config.wedding.name
             show: true
+        navbar_title:
+            type: string
+            form_type: Symfony\Component\Form\Extension\Core\Type\TextType
+            group: config.general.group
+            label: config.general.navbar_title
+            show: true

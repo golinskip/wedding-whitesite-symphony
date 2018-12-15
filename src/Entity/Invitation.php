@@ -87,9 +87,21 @@ class Invitation implements UserInterface
      */
     private $invitationGroup;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ParameterValue", mappedBy="invitation", cascade={"persist"})
+     */
+    private $parameterValues;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Gift", mappedBy="invitation")
+     */
+    private $gifts;
+
     public function __construct()
     {
         $this->people = new ArrayCollection();
+        $this->parameterValues = new ArrayCollection();
+        $this->gifts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -329,5 +341,67 @@ class Invitation implements UserInterface
             }
         }
         return $ret;
+    }
+
+    /**
+     * @return Collection|ParameterValue[]
+     */
+    public function getParameterValues(): Collection
+    {
+        return $this->parameterValues;
+    }
+
+    public function addParameterValue(ParameterValue $parameterValue): self
+    {
+        if (!$this->parameterValues->contains($parameterValue)) {
+            $this->parameterValues[] = $parameterValue;
+            $parameterValue->setInvitation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParameterValue(ParameterValue $parameterValue): self
+    {
+        if ($this->parameterValues->contains($parameterValue)) {
+            $this->parameterValues->removeElement($parameterValue);
+            // set the owning side to null (unless already changed)
+            if ($parameterValue->getInvitation() === $this) {
+                $parameterValue->setInvitation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gift[]
+     */
+    public function getGifts(): Collection
+    {
+        return $this->gifts;
+    }
+
+    public function addGift(Gift $gift): self
+    {
+        if (!$this->gifts->contains($gift)) {
+            $this->gifts[] = $gift;
+            $gift->setInvitation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGift(Gift $gift): self
+    {
+        if ($this->gifts->contains($gift)) {
+            $this->gifts->removeElement($gift);
+            // set the owning side to null (unless already changed)
+            if ($gift->getInvitation() === $this) {
+                $gift->setInvitation(null);
+            }
+        }
+
+        return $this;
     }
 }

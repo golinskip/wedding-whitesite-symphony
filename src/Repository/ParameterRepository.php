@@ -19,6 +19,26 @@ class ParameterRepository extends ServiceEntityRepository
         parent::__construct($registry, Parameter::class);
     }
 
+    public function findForPerson()
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.all_person = 0')
+            ->andWhere('p.visible = 1')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findForInvitation()
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.all_person = 1')
+            ->andWhere('p.visible = 1')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Parameter[] Returns an array of Parameter objects
     //  */

@@ -14,6 +14,15 @@ class ConfirmatorForm extends AbstractType {
     
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
+            ->add('parameterValues', CollectionType::class, [
+                'label' => false,
+                'entry_type'    => ConfirmatorParameterForm::class,
+                'entry_options'  => array(
+                    'label' => false,
+                ),
+                'required'     => false,
+                'prototype'    => false,
+            ])
             ->add('people', CollectionType::class, [
                 'entry_type'    => ConfirmatorPersonForm::class,
                 'entry_options'  => [

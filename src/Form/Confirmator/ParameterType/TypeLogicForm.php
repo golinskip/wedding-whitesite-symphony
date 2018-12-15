@@ -25,7 +25,8 @@ class TypeLogicForm implements ParameterTypeInterface {
         $form->add('value', ChoiceType::class, [
             'label' => $name,
             'choices' => [
-                LogicModel::VALUE_TRUE, LogicModel::VALUE_FALSE,
+                'confirmator.yes' => LogicModel::VALUE_TRUE,
+                'confirmator.no' => LogicModel::VALUE_FALSE,
             ],
             'multiple' => false,
             'expanded' => $expanded,

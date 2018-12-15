@@ -62,6 +62,11 @@ class Parameter
      */
     private $parameterValues;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $all_person;
+
     public function __construct()
     {
         $this->parameterValues = new ArrayCollection();
@@ -186,5 +191,25 @@ class Parameter
             return "New Parameter";
         }
         return $this->getName();
+    }
+
+    /**
+     * Get the value of all_person
+     */ 
+    public function getAllPerson()
+    {
+        return $this->all_person;
+    }
+
+    /**
+     * Set the value of all_person
+     *
+     * @return  self
+     */ 
+    public function setAllPerson($all_person)
+    {
+        $this->all_person = $all_person;
+
+        return $this;
     }
 }

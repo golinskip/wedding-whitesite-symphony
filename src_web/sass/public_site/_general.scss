@@ -1,17 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Calligraffitti|Cedarville+Cursive|Coming+Soon|Cookie|Cormorant+Garamond|Dancing+Script|Dosis|Give+You+Glory|Grand+Hotel|Handlee|Kristi|Leckerli+One|Lobster|Lobster+Two|Niconne|Noto+Sans+TC|Over+the+Rainbow|Pacifico|Pangolin|Poiret+One|Sacramento|Satisfy|Sedgwick+Ave|Shadows+Into+Light+Two|Slabo+27px|Special+Elite|Sue+Ellen+Francisco|Text+Me+One|Unica+One');
 /*@import url('https://fonts.googleapis.com/css?family=Great+Vibes');*/
 /*@import url('https://fonts.googleapis.com/css?family=Caveat');*/
-@import url('https://fonts.googleapis.com/css?family=Lobster+Two');
+//@import url('https://fonts.googleapis.com/css?family=Lobster+Two');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
 
 body {
-    font-family: 'Lobster Two', cursive;
+    // font-family: 'Sedgwick Ave', cursive; // PL
+    // font-family: 'Lobster', cursive; // PL 
+    // font-family: 'Pacifico', cursive; // PL
+    // font-family: 'Dancing Script', cursive; // PL
+    // font-family: 'Amatic SC', cursive; // PL #1
+    // font-family: 'Poiret One', cursive; // PL #2
+    // font-family: 'Sacramento', cursive; //PL
+    // font-family: 'Unica One', cursive; // PL
+    // font-family: 'Shadows Into Light Two', cursive; // PL
+    // font-family: 'Grand Hotel', cursive; // PL
+    // font-family: 'Pangolin', cursive; // PL
+    // font-family: 'Cormorant Garamond', serif; // PL
+    //font-family: 'Open Sans', sans-serif;
+    font-family: 'Oswald', sans-serif;
   /* Margin bottom by footer height */
     /*margin-bottom: 60px;*/
     margin-top:56px;
-}
-
-@font-face {
-    font-family: 'YourFontName'; /*a name to be used later*/
-    src: url('fonts/'); /*URL to font*/
 }
 
 img.home-image {

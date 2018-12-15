@@ -17,11 +17,6 @@ class ParameterValue
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="parameterValues")
-     */
-    private $person;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Parameter", inversedBy="parameterValues")
      */
     private $parameter;
@@ -30,6 +25,18 @@ class ParameterValue
      * @ORM\Column(type="text", nullable=true)
      */
     private $value;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="parameterValues")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $person;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Invitation", inversedBy="parameterValues")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $invitation;
 
     public function getId(): ?int
     {
@@ -68,6 +75,18 @@ class ParameterValue
     public function setValue($value): self
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    public function getInvitation(): ?Invitation
+    {
+        return $this->invitation;
+    }
+
+    public function setInvitation(?Invitation $invitation): self
+    {
+        $this->invitation = $invitation;
 
         return $this;
     }

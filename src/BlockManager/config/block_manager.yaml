@@ -24,3 +24,9 @@ block_manager:
             manager: App\BlockManager\Blocks\NewsBlock\NewsBlockManager
             model: App\BlockManager\Blocks\NewsBlock\NewsBlock
             form: App\BlockManager\Blocks\NewsBlock\NewsBlockForm
+        login_form:
+            tag: block.login_form
+            name: LoginForm
+            manager: App\BlockManager\Blocks\LoginForm\LoginFormManager
+            model: App\BlockManager\Blocks\LoginForm\LoginForm
+            form: App\BlockManager\Blocks\LoginForm\LoginFormForm

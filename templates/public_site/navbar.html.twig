@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="/">Wedding Whitesite</a>
+        <a class="navbar-brand" href="/">{{ config.object.navbar_title }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -28,9 +28,11 @@
           </ul>-->
         </div>
         {% if is_granted('ROLE_PRIVATE_ACCESS') %}
-            <a href="{{ path('private_index') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Your Invitation</a>
+            <a href="{{ path('private_index') }}" class="btn btn-outline-success my-2 my-sm-0">{{ 'general.goto_invitation'|trans }}</a>
         {% else %}
-            {% include 'security/login_navbar.html.twig' %}
+            {% if config.object.navbar_show_login %}
+              {% include 'security/login_navbar.html.twig' %}
+            {% endif %}
         {% endif %}
       </div>
     </nav>

@@ -1,0 +1,22 @@
+
+{# Provide LoginForm model class as data #}
+<div class="wws-block-login-form">
+    {% if is_granted('ROLE_PRIVATE_ACCESS') %}
+        <a href="{{ path('private_index') }}" class="btn btn-outline-success my-2 my-sm-0">{{data.button_text|raw}}</a>
+    {% else %}
+    <form method="post" action="{{ path('app_login') }}">
+        <div class="input-group input-group-lg">
+                <label for="inputCode" class="sr-only">{{ 'login.code_label'|trans }}</label>
+                <input type="text" name="code" id="inputCode" class="form-control" aria-label="large" placeholder="{{ 'login.code_placeholder'|trans }}" required>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <button class="btn btn-lg btn-primary" type="submit">
+                    {{ 'login.button'|trans }}
+                </button>
+        </div>
+
+    </form>
+
+    
+</div>
+    {% endif %}
+</div>

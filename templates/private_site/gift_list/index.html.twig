@@ -1,0 +1,30 @@
+{% extends 'private_site/base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid spaced">
+    <div class="container">
+        {% for gift in gifts %}
+            <div class="row">
+                <div class="col-sm-3">
+                    {% if gift.image %}
+                        <a href="{#{ path(news_path, {'slug': news.urlName}) }#}" class=""><img src="{% path gift.image, 'small' %}" class="img-thumbnail"></a>
+                    {% endif %}
+                    <p><a class="btn btn-primary btn-lg btn-block" href="{#{ path(news_path, {'slug': news.urlName}) }#}#">I can buy it &raquo;</a></p>
+                </div>
+                <div class="col-sm-9">
+                    <h3 class="title">
+                        <a href="{#{ path(news_path, {'slug': news.urlName}) }#}" class="">
+                            {{ gift.name }}
+                        </a>
+                    </h3>
+                    <hr/>
+                    <p>{{ gift.shortDescription }} <a href="{#{ path(news_path, {'slug': news.urlName}) }#}#">Details &raquo;</a></p>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

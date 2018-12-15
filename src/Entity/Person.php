@@ -100,15 +100,18 @@ class Person
         return $this->status;
     }
 
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function setStatus(int $status = self::STATUS_UNDEFINED): self
+    public function setStatus(int $status): self
     {
         $this->status = $status;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function defaultStatus() {
+        $this->setStatus(self::STATUS_UNDEFINED);
     }
     
     public function getEditable(): ?bool

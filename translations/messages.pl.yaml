@@ -9,7 +9,10 @@ blocks:
         sds: sekund
         sd: sekunda
 confirmator:
+    menu: Obecność
     title: Potwierdź obecność
+    yes: Tak
+    no: Nie
     instructions:
         - "Wpisz lub popraw imię i nazwisko osób, jeśli się nie zgadza"
         - "Określ, czy dana osoba będzie obecna, klikając na przycisk obok imienia i nazwiska"
@@ -30,6 +33,7 @@ dashboard:
     buttons:
         confirm: Potwierdź obecność
         contact: Dane kontaktowe
+        gift_list: Lista prezentów
     reactions:
         undefined:
             title: Uwaga!
@@ -52,3 +56,11 @@ config:
         group: Ogólne
         title: Tytuł strony
         navbar_show_login: Pokaż panel logowania na pasku menu
+        navbar_title: Tytuł na pasku menu
+login:
+    logout: Wyloguj
+    button: Zaloguj się
+    code_label: Kod
+    code_placeholder: Wpisz swój kod
+general:
+    goto_invitation: Twoje zaproszenie

@@ -13,6 +13,7 @@
         {%- endfor %}
         </ul>
         {{ form_start(form) }}
+        {{ form_widget(form.parameterValues) }}
         {% for formPerson in form.children.people.children %}
             {% include 'private_site/confirmator/rowPerson.html.twig' with {'form': formPerson} %}
         {% endfor %}

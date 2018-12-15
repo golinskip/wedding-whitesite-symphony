@@ -32,6 +32,9 @@ class ParameterAdmin extends AbstractAdmin
         ->add('visible', CheckboxType::class, [
             'required' => false,
         ])
+        ->add('all_person', CheckboxType::class, [
+            'required' => false,
+        ])
         ;
 
         $parameter = $this->getSubject();

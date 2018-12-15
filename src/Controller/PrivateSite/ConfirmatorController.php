@@ -20,26 +20,7 @@ class ConfirmatorController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $Invitation = $this->getUser();
 
-        // Add not existed paramters
-        $Parameters = $this->getDoctrine()
-            ->getRepository(Parameter::class)
-            ->findAll();
-        foreach($Invitation->getPeople() as $Person) {
-            $parameterIdList = [];
-            foreach($Person->getParameterValues() as $ParameterValues) {
-                $parameterIdList[] = $ParameterValues->getParameter()->getId();
-            }
-            foreach($Parameters as $Parameter) {
-                if(in_array($Parameter->getId(), $parameterIdList)) {
-                    continue;
-                }
-                $ParameterValue = new ParameterValue;
-                $ParameterValue->setParameter($Parameter);
-                $ParameterValue->setPerson($Person);
-                $ParameterValue->setValue('');
-                $Person->addParameterValue($ParameterValue);
-            }
-        }
+        $this->cleanUpParameterValues($Invitation);
         
         $form = $this->createForm(ConfirmatorForm::class, $Invitation);
 
@@ -60,5 +41,66 @@ class ConfirmatorController extends AbstractController
             'controller_name' => 'ConfirmatorController',
             'form' => $form->createView(),
         ]);
+    }
+
+    protected function cleanUpParameterValues($Invitation) {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        // Parameters for people
+        $ParametersForPerson = $this->getDoctrine()
+            ->getRepository(Parameter::class)
+            ->findForPerson();
+        $paramValueList = [];
+        foreach($Invitation->getPeople() as $Person) {
+            foreach($Person->getParameterValues() as $ParameterValue) {
+                $paramValueList[$Person->getId()] = $paramValueList[$Person->getId()] ?? [];
+                $paramValueList[$Person->getId()][$ParameterValue->getParameter()->getId()] = $ParameterValue;
+            }
+            foreach($ParametersForPerson as $Parameter) {
+                if(isset($paramValueList[$Person->getId()][$Parameter->getId()])) {
+                    unset($paramValueList[$Person->getId()][$Parameter->getId()]);
+                    continue;
+                }
+                $ParameterValue = new ParameterValue;
+                $ParameterValue ->setParameter($Parameter)
+                                ->setPerson($Person)
+                                ->setValue('');
+                $Person->addParameterValue($ParameterValue);
+            }
+        }
+
+        // Remove unused values
+        foreach($paramValueList as $personId => $ParamsList) {
+            foreach($ParamsList as $ParameterValue) {
+                $em->remove($ParameterValue);
+            }
+        }
+        $em->flush();
+
+        $paramValueList = [];
+        // Parameters for invitation
+        $ParametersForInvitation = $this->getDoctrine()
+            ->getRepository(Parameter::class)
+            ->findForInvitation();
+        foreach($Invitation->getParameterValues() as $ParameterValue) {
+            $paramValueList[$ParameterValue->getParameter()->getId()] = $ParameterValue;
+        }
+        foreach($ParametersForInvitation as $Parameter) {
+            if(isset($paramValueList[$Parameter->getId()])) {
+                unset($paramValueList[$Parameter->getId()]);
+                continue;
+            }
+            $ParameterValue = new ParameterValue;
+            $ParameterValue ->setParameter($Parameter)
+                            ->setInvitation($Invitation)
+                            ->setValue('');
+            $Invitation->addParameterValue($ParameterValue);
+        }
+
+        // Remove unused values
+        foreach($paramValueList as $ParameterValue) {
+            $em->remove($ParameterValue);
+        }
+        $em->flush();
     }
 }

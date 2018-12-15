@@ -58,7 +58,7 @@ class Builder
     { 
         $menu = $this->factory->createItem('root'); 
         
-        $menu->addChild('Confirmator', [
+        $menu->addChild('confirmator.menu', [
             'route' => 'private_confirmator',
         ]);
 
@@ -81,7 +81,7 @@ class Builder
             }
         }
 
-		$menu->addChild('Logout', [
+		$menu->addChild('login.logout', [
             'route' => 'app_logout',
         ]);
 

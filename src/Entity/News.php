@@ -39,7 +39,7 @@ class News
     private $lead;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $content;
 
