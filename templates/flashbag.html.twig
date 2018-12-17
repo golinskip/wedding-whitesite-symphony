@@ -3,11 +3,11 @@
     <div class="row">
         <div class="col-sm-12">
                 {% for flash in flashes %}
-                    <div class="alert alert-{{ label }}">
+                    <div class="alert alert-{{ label }}" rile="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        {{ flash }}
+                        {{ flash|raw }}
                     </div>
                 {% endfor %}
         </div>

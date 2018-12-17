@@ -24,6 +24,7 @@
     "font-awesome": "^4.7.0",
     "fullcalendar": "^3.9.0",
     "jquery": "^3.3.1",
+    "jquery-litebox": "^1.0.2",
     "popper.js": "^1.14.5",
     "timecircles": "^1.5.3",
     "tinymce": "^4.8.5"

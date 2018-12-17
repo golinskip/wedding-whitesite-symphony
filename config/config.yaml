@@ -37,3 +37,27 @@ config:
             group: config.general.group
             label: config.general.navbar_title
             show: true
+        gift_enabled:
+            type: boolean
+            form_type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+            form_options:
+                required: false
+            group: config.gift.group
+            label: config.gift.enabled
+            show: true
+        gift_show_chosen:
+            type: boolean
+            form_type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+            form_options:
+                required: false
+            group: config.gift.group
+            label: config.gift.show_chosen
+            show: true
+        gift_multiple_choice:
+            type: boolean
+            form_type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+            form_options:
+                required: false
+            group: config.gift.group
+            label: config.gift.multiple
+            show: true

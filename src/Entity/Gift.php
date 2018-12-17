@@ -132,6 +132,11 @@ class Gift
 
     public function setInvitation(?Invitation $invitation): self
     {
+        if($invitation === null) {
+            $this->setReservedAt(null);
+        } else {
+            $this->setReservedAt(new \DateTime());
+        }
         $this->invitation = $invitation;
 
         return $this;

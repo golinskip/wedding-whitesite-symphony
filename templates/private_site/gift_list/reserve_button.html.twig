@@ -1,0 +1,18 @@
+{% set btn_vars = ' btn-lg btn-block' %}
+{% if gift.invitation %}
+        {% if gift.invitation != app.user %}
+            <button type="button" class="btn btn-secondary{{ btn_vars }}">{{ 'gift_list.buttons.chosen'|trans }}</button>
+        {% else %}
+            <a class="btn btn-warning {{ btn_vars }}" href="{{ path('private_gift_unreserve', {'giftId': gift.id}) }}">
+                {{ 'gift_list.buttons.uncheck'|trans }}
+            </a>
+        {% endif %}
+{% else %}
+    <a class="btn btn-primary {{ btn_vars }}" href="{{ path('private_gift_reserve', {'giftId': gift.id}) }}">
+        {% if not config.object.gift_multiple_choice and app.user.gifts|length %}
+            {{ 'gift_list.buttons.change'|trans }} &raquo;
+        {% else %}
+            {{ 'gift_list.buttons.chose'|trans }} &raquo;
+        {% endif %}
+    </a>
+{% endif %}

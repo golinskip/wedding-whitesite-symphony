@@ -1,0 +1,25 @@
+
+        {% if invitation.partialStatus == 0 %}
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">{{'dashboard.reactions.undefined.title'|trans}}</h4>
+                <p> {{'dashboard.reactions.undefined.text'|trans}}</p>
+            </div>
+        {% elseif invitation.partialStatus == 1 %}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">{{'dashboard.reactions.all.title'|trans}}</h4>
+                <p> {{'dashboard.reactions.all.text'|trans}}</p>
+            </div>
+        {% elseif invitation.partialStatus == 2 %}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">{{'dashboard.reactions.part.title'|trans}}</h4>
+                <p> {{'dashboard.reactions.part.text'|trans}}</p>
+            </div>
+        {% elseif invitation.partialStatus == 3 %}
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">{{'dashboard.reactions.none.title'|trans}}</h4>
+                <p> {{'dashboard.reactions.none.text'|trans}}</p>
+            </div>
+        {% endif %}
+        <a class="btn btn-primary btn-lg btn-block kp-home-button" href="{{ path('private_confirmator') }}">
+            <i class="fa fa-check-circle-o"></i> {{'dashboard.buttons.confirm'|trans}} &raquo;
+        </a>

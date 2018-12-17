@@ -1,0 +1,20 @@
+
+
+<a class="btn btn-primary btn-lg btn-block kp-home-button" href="{{ path('private_gift_list') }}">
+    <i class="fa fa-gift"></i> {{'dashboard.buttons.gift_list'|trans}} &raquo;
+</a>
+
+{% if app.user.gifts|length > 0 %}
+    {% if app.user.gifts|length == 1 %}
+        <h5>{{ 'dashboard.gifts.chosen1'|trans }}</h5>
+    {% else %}
+        <h5>{{ 'dashboard.gifts.chosen'|trans }}</h5>
+    {% endif %}
+        {% for gift in app.user.gifts %}
+            <ul>
+                <li>
+                    <a href="{{ path('private_gift', {'giftId': gift.id}) }}">{{ gift.name }}</a>
+                </li>
+            </ul>
+        {% endfor %}
+{% endif %}

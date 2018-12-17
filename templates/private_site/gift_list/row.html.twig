@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-sm-3">
+        {% if gift.image %}
+            <a href="{% path gift.image, 'big' %}" class="thumbnail"><img src="{% path gift.image, 'small' %}" class="img-thumbnail"></a>
+        {% endif %}
+        <p>
+            {% include 'private_site/gift_list/reserve_button.html.twig'%}
+        </p>
+    </div>
+    <div class="col-sm-9">
+        <h3 class="title">
+            <a href="{{ path('private_gift', {'giftId': gift.id}) }}" class="">
+                {{ gift.name }}
+            </a>
+        </h3>
+                {% if gift.link %}
+                    <a target="blank" class="small" href="{{ gift.link }}"><i class="fa fa-link"></i> {{ gift.link }} </a>
+                {% endif %}
+        <hr />
+        <p>
+            {{ gift.shortDescription }} 
+            <a href="{{ path('private_gift', {'giftId': gift.id}) }}">{{ 'gift_list.details'|trans }} &raquo;</a>
+        </p>
+    </div>
+</div>
+<hr>

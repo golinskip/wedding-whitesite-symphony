@@ -1,0 +1,34 @@
+{% extends 'private_site/base.html.twig' %}
+
+{% block content %}
+<div class="container wws-articles-single">
+    <a href="{{ path('private_gift_list') }}">&laquo; {{ 'gift_list.back'|trans }}</a>
+        <div class="row">
+            <div class="col-md-3">
+                {% if gift.image %}
+                    <a href="{% path gift.image, 'big' %}" class="thumbnail"><img src="{% path gift.image, 'small' %}" class="img-thumbnail"></a>
+                {% endif %}
+            </div>
+            <div class="col-md-9">
+                <h3 class="title">{{ gift.name }}</h3>
+                {% if gift.link %}
+                    <a target="blank" class="small" href="{{ gift.link }}"><i class="fa fa-link"></i> {{ gift.link }} </a>
+                {% endif %}
+                <p>{% include 'private_site/gift_list/reserve_button.html.twig'%}</p>
+            </div>
+        <div class="col-md-12">
+            <hr>
+            <p>{{ gift.description|raw }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('vendor/js/jquery.litebox.js') }}"></script>
+    <script src="{{ asset('js/gifts.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/css/jquery.litebox.css') }}" />
+{% endblock %}

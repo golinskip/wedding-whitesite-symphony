@@ -116,7 +116,6 @@ services:
         class: App\Security\InvitationProvider
         arguments: [ "@doctrine.orm.entity_manager" ]
 
-
     app.config:
         public: true
         class: App\Services\ConfigService

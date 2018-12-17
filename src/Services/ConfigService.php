@@ -6,6 +6,7 @@ use App\Entity\Config;
 use Symfony\Component\Yaml\Yaml;
 use App\Services\ConfigConfiguration;
 use Symfony\Component\Config\Definition\Processor;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ConfigService {
 
@@ -130,7 +131,7 @@ class ConfigService {
         return $this->configObject;
     }
 
-    public function __construct(EntityManager $em) {
+    public function __construct(EntityManagerInterface $em) {
         $this->em = $em;
         $this->load();
     }

@@ -4,11 +4,11 @@ sonata_media:
     contexts:
         default:
             providers:
-                - sonata.media.provider.dailymotion
-                - sonata.media.provider.youtube
+                # - sonata.media.provider.dailymotion
+                # - sonata.media.provider.youtube
                 - sonata.media.provider.image
-                - sonata.media.provider.file
-                - sonata.media.provider.vimeo
+                # - sonata.media.provider.file
+                # - sonata.media.provider.vimeo
 
             formats:
                 small: { width: 100 , quality: 70}
@@ -23,9 +23,9 @@ sonata_media:
             # Directory for uploads should be writable
             directory: "%kernel.project_dir%/public/upload/media"
             create: false
-#    providers:
-#        image:
-#            resizer: sonata.media.resizer.square
+    # providers:
+    #     image:
+    #         resizer: sonata.media.resizer.square
 
     class:
         media: App\Application\Sonata\MediaBundle\Entity\Media
@@ -33,15 +33,15 @@ sonata_media:
         gallery_has_media: App\Application\Sonata\MediaBundle\Entity\GalleryHasMedia
 
     providers:
-        file:
-            service:    sonata.media.provider.file
-            resizer:    false
-            filesystem: sonata.media.filesystem.local
-            cdn:        sonata.media.cdn.server
-            generator:  sonata.media.generator.default
-            thumbnail:  sonata.media.thumbnail.format
-            allowed_extensions: ['pdf', 'txt', 'rtf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pttx', 'odt', 'odg', 'odp', 'ods', 'odc', 'odf', 'odb', 'csv', 'xml']
-            allowed_mime_types: ['application/pdf', 'application/x-pdf', 'application/rtf', 'text/html', 'text/rtf', 'text/plain']
+        # file:
+        #     service:    sonata.media.provider.file
+        #     resizer:    false
+        #     filesystem: sonata.media.filesystem.local
+        #     cdn:        sonata.media.cdn.server
+        #     generator:  sonata.media.generator.default
+        #     thumbnail:  sonata.media.thumbnail.format
+        #     allowed_extensions: ['pdf', 'txt', 'rtf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pttx', 'odt', 'odg', 'odp', 'ods', 'odc', 'odf', 'odb', 'csv', 'xml']
+        #     allowed_mime_types: ['application/pdf', 'application/x-pdf', 'application/rtf', 'text/html', 'text/rtf', 'text/plain']
 
         image:
             service:    sonata.media.provider.image
@@ -53,19 +53,19 @@ sonata_media:
             allowed_extensions: ['jpg', 'png', 'jpeg']
             allowed_mime_types: ['image/pjpeg', 'image/jpeg', 'image/png', 'image/x-png']
 
-        youtube:
-            service:    sonata.media.provider.youtube
-            resizer:    sonata.media.resizer.simple
-            filesystem: sonata.media.filesystem.local
-            cdn:        sonata.media.cdn.server
-            generator:  sonata.media.generator.default
-            thumbnail:  sonata.media.thumbnail.format
-            html5: false
+        # youtube:
+        #     service:    sonata.media.provider.youtube
+        #     resizer:    sonata.media.resizer.simple
+        #     filesystem: sonata.media.filesystem.local
+        #     cdn:        sonata.media.cdn.server
+        #     generator:  sonata.media.generator.default
+        #     thumbnail:  sonata.media.thumbnail.format
+        #     html5: false
 
-        dailymotion:
-            service:    sonata.media.provider.dailymotion
-            resizer:    sonata.media.resizer.simple
-            filesystem: sonata.media.filesystem.local
-            cdn:        sonata.media.cdn.server
-            generator:  sonata.media.generator.default
-            thumbnail:  sonata.media.thumbnail.format
+        # dailymotion:
+        #     service:    sonata.media.provider.dailymotion
+        #     resizer:    sonata.media.resizer.simple
+        #     filesystem: sonata.media.filesystem.local
+        #     cdn:        sonata.media.cdn.server
+        #     generator:  sonata.media.generator.default
+        #     thumbnail:  sonata.media.thumbnail.format

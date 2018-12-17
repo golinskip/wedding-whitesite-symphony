@@ -47,6 +47,9 @@ dashboard:
         none:
             title: Drodzy goście,
             text: bardzo żałujemy, że nie będzie Was z nami.
+    gifts:
+        chosen1: Wybrany przez Ciebie prezent
+        chosen: Wybrane przez Ciebie prezenty
 config:
     wedding:
         group: Ślub
@@ -57,6 +60,11 @@ config:
         title: Tytuł strony
         navbar_show_login: Pokaż panel logowania na pasku menu
         navbar_title: Tytuł na pasku menu
+    gift:
+        group: Lista prezentów
+        enabled: Aktywuj listę prezentów
+        show_chosen: Pokaż już wybrane
+        multiple: Jedna osoba może wybrać więcej niż jeden prezent
 login:
     logout: Wyloguj
     button: Zaloguj się
@@ -64,3 +72,20 @@ login:
     code_placeholder: Wpisz swój kod
 general:
     goto_invitation: Twoje zaproszenie
+gift_list:
+
+    buttons:
+        chose: Wybierz ten prezent
+        change: Zmień prezent na ten
+        chosen: Ten prezent jest już wybrany
+        uncheck: Zrezygnuj z tego prezentu
+        details: Szczegóły
+    messages:
+        chosen: "Dziękujemy za wybór prezentu! Twój wybór to <b>[name]</b>"
+        unchosen: "Zrezygnowałeś z prezentu <b>[name]</b>"
+        not_found: Niestety nie znaleziono prezentu!
+        can_not_unchose: Nie można zrezygnować z tego prezentu!
+        is_yours: "Już wybrałeś ten prezent"
+        is_reserved: "Niestety prezent <b>[name]</b> został wybrany przez inną osobę."
+    back: Powrót do listy prezentów
+    details: Zobacz więcej

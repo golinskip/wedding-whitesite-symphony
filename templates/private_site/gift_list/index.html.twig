@@ -5,26 +5,25 @@
 {% block content %}
 <div class="container-fluid spaced">
     <div class="container">
+        {% for gift in app.user.gifts %}
+            {% include 'private_site/gift_list/row.html.twig'%}
+        {% endfor %}
+    </div>
+    <div class="container">
         {% for gift in gifts %}
-            <div class="row">
-                <div class="col-sm-3">
-                    {% if gift.image %}
-                        <a href="{#{ path(news_path, {'slug': news.urlName}) }#}" class=""><img src="{% path gift.image, 'small' %}" class="img-thumbnail"></a>
-                    {% endif %}
-                    <p><a class="btn btn-primary btn-lg btn-block" href="{#{ path(news_path, {'slug': news.urlName}) }#}#">I can buy it &raquo;</a></p>
-                </div>
-                <div class="col-sm-9">
-                    <h3 class="title">
-                        <a href="{#{ path(news_path, {'slug': news.urlName}) }#}" class="">
-                            {{ gift.name }}
-                        </a>
-                    </h3>
-                    <hr/>
-                    <p>{{ gift.shortDescription }} <a href="{#{ path(news_path, {'slug': news.urlName}) }#}#">Details &raquo;</a></p>
-                </div>
-            </div>
-            <hr>
+            {% if gift.invitation != app.user and (not gift.invitation or config.object.gift_show_chosen) %}
+            {% include 'private_site/gift_list/row.html.twig'%}
+            {% endif %}
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('vendor/js/jquery.litebox.js') }}"></script>
+    <script src="{{ asset('js/gifts.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/css/jquery.litebox.css') }}" />
 {% endblock %}
