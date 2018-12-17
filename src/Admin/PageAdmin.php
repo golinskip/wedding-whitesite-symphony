@@ -108,7 +108,7 @@ class PageAdmin extends AbstractAdmin
 
         if ($this->isGranted('LIST')) {
             $menu->addChild('Manage Blocks', [
-                'uri' => $admin->generateUrl('admin.page_block.list', ['id' => $id])
+                'uri' => $admin->generateUrl('admin.pageBlock.list', ['id' => $id])
             ]);
         }
 

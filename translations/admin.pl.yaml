@@ -1,0 +1,19 @@
+group:
+    invitations: Zaproszenia
+    content: Treści
+    setup: Ustawienia
+    gift_list: Lista prezentów
+    media: Media
+    user: Administratorzy
+label:
+    invitations: Zaproszenia
+    person: Osoby
+    parameters: Dodatkowe pola
+    setup: Ustawienia
+    invitation_group: Grupy zaproszeń
+    person_group: Grupy osób
+    page: Strony
+    page_block: Bloki na stronie
+    news: Aktualności
+    gifts: Prezenty
+    import_export: Import i eksport danych

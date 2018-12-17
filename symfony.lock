@@ -146,6 +146,9 @@
     "kriswallsmith/buzz": {
         "version": "v0.16.1"
     },
+    "markbaker/complex": {
+        "version": "1.4.7"
+    },
     "nikic/php-parser": {
         "version": "v4.1.0"
     },
@@ -157,6 +160,9 @@
     },
     "phpcollection/phpcollection": {
         "version": "0.5.0"
+    },
+    "phpoffice/phpspreadsheet": {
+        "version": "1.5.2"
     },
     "phpoption/phpoption": {
         "version": "1.5.0"
@@ -178,6 +184,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -283,6 +292,9 @@
             "version": "3.3",
             "ref": "b5026d7ffdb43b4d66f4cc091b1e6f94e6023986"
         }
+    },
+    "symfony/contracts": {
+        "version": "v1.0.2"
     },
     "symfony/debug": {
         "version": "v4.1.7"
@@ -448,6 +460,9 @@
     },
     "symfony/var-dumper": {
         "version": "v4.1.7"
+    },
+    "symfony/var-exporter": {
+        "version": "v4.2.1"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",

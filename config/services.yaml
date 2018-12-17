@@ -34,78 +34,107 @@ services:
         class: App\Admin\InvitationAdmin
         arguments: [~, App\Entity\Invitation, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Invitation, label: Invitation}
+            - { name: sonata.admin, manager_type: orm, group: invitations, label: label.invitations, label_catalogue: "admin" }
         public: true
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
 
     admin.person:
         class: App\Admin\PersonAdmin
         arguments: [~, App\Entity\Person, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Invitation, label: Person}
+            - { name: sonata.admin, manager_type: orm, group: invitations, label: label.person, label_catalogue: "admin" }
         public: true
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
 
     admin.parameter:
         class: App\Admin\ParameterAdmin
         arguments: [~, App\Entity\Parameter, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Setup, label: Parameters}
+            - { name: sonata.admin, manager_type: orm, group: invitations, label: label.parameters, label_catalogue: "admin" }
         public: true
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
 
     admin.invitationGroup:
         class: App\Admin\InvitationGroupAdmin
         arguments: [~, App\Entity\InvitationGroup, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Setup, label: InvitationGroup}
+            - { name: sonata.admin, manager_type: orm, group: invitations, label: label.invitation_group, label_catalogue: "admin" }
         public: true
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
 
     admin.personGroup:
         class: App\Admin\PersonGroupAdmin
         arguments: [~, App\Entity\PersonGroup, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Setup, label: PersonGroup }
+            - { name: sonata.admin, manager_type: orm, group: invitations, label: label.person_group , label_catalogue: "admin" }
         public: true
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
 
     admin.page:
         class: App\Admin\PageAdmin
         arguments: [~, App\Entity\Page, 'PixSortableBehaviorBundle:SortableAdmin']
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Content, label: Page }
+            - { name: sonata.admin, manager_type: orm, group: content, label: label.page, label_catalogue: "admin"  }
         calls:
-         - [ addChild, ['@admin.page_block', 'page']]
+            - [ addChild, ['@admin.pageBlock', 'page']]
+            - [ setTranslationDomain, [ "admin" ] ]
         public: true
 
-    admin.page_block:
+    admin.pageBlock:
         class: App\Admin\PageBlockAdmin
         arguments: [~, App\Entity\PageBlock, 'PixSortableBehaviorBundle:SortableAdmin', '@block.service']
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Content, label: PageBlock }
+            - { name: sonata.admin, manager_type: orm, group: content, label: label.page_block, label_catalogue: "admin" }
         public: true
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
 
     admin.news:
         class: App\Admin\NewsAdmin
         arguments: [~, App\Entity\News, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Content, label: News }
+            - { name: sonata.admin, manager_type: orm, group: content, label: label.news , label_catalogue: "admin"}
         public: true
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
 
     admin.gifts:
         class: App\Admin\GiftAdmin
         arguments: [~, App\Entity\Gift, 'PixSortableBehaviorBundle:SortableAdmin']
         tags:
-            - { name: sonata.admin, manager_type: orm, group: GiftList, label: Gifts }
+            - { name: sonata.admin, manager_type: orm, group: gift_list, label: label.gifts, label_catalogue: "admin" }
         public: true
-
-
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
 
     admin.setup:
         class: App\Admin\SetupAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Setup, label: Setup }
+            - { name: sonata.admin, manager_type: orm, group: setup, label: label.setup, label_catalogue: "admin" }
         arguments:
             - null
             - null
             - App\Controller\Admin\ConfigController
         public: true
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
+
+    admin.importExport:
+        class: App\Admin\ImportExportAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: invitations, label: label.import_export, label_catalogue: "admin" }
+        arguments:
+            - null
+            - null
+            - App\Controller\Admin\ImportExportController
+        public: true
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
 
     # Manager of block
     block.service:

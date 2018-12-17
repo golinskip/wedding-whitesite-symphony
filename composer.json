@@ -10,6 +10,7 @@
         "gedmo/doctrine-extensions": "^2.4",
         "knplabs/knp-menu-bundle": "^2.2",
         "knplabs/knp-paginator-bundle": "^2.8",
+        "phpoffice/phpspreadsheet": "^1.5",
         "pixassociates/sortable-behavior-bundle": "^1.5",
         "sensio/framework-extra-bundle": "^5.2",
         "setasign/fpdf": "1.8.1",

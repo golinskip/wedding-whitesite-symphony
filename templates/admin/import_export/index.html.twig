@@ -1,0 +1,8 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block sonata_admin_content %}
+    {#{ form_start(form) }}
+    {{ form_widget(form) }#}
+    <button type="submit" class="btn btn-success" name="btn_update_and_edit"><i class="fa fa-save" aria-hidden="true"></i> {{ 'save'|trans }}</button>
+    {#{ form_end(form) }#}
+{% endblock %}

@@ -1,8 +1,35 @@
 sonata_admin:
-    title: 'Sonata Admin'
+    title: 'Wedding Whitesite'
     dashboard:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
+        groups:
+            invitations:
+                label: group.invitations
+                label_catalogue: "admin" 
+                icon: '<i class="fa fa-envelope-open-o"></i>'
+            content:
+                label: group.content
+                label_catalogue: "admin" 
+                icon: '<i class="fa fa-newspaper-o"></i>'
+            gift_list:
+                label: group.gift_list
+                label_catalogue: "admin" 
+                icon: '<i class="fa fa-gift"></i>'
+            sonata_media:
+                label: group.media
+                label_catalogue: "admin" 
+                icon: '<i class="fa fa-camera-retro "></i>'
+            sonata_user:
+                label: group.user
+                label_catalogue: "admin" 
+                icon: '<i class="fa fa-users"></i>'
+            setup:
+                label: group.setup
+                label_catalogue: "admin" 
+                icon: '<i class="fa fa-cogs"></i>'
+
+
 
 sonata_block:
     blocks:

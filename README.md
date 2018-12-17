@@ -1,12 +1,14 @@
-How to install:
+# How to install:
+    cp .env .env.dist
+    vim .env.dist (and set variables)
+    composer install
+    bin/console doctrine:schema:update --foce
+    bin/console doctrine:fixtures:load
+    bin/console assets:install --symlink
+    npm install
+    grunt
 
-== PHP/Symfony application install ==
-* cp .env .env.dist
-* vim .env.dist (and set variables)
-* composer install
-* bin/console doctrine:schema:create
-* bin/console fos:user:create
-
-== Javascript dependences ==
-* npm install
-* grunt
+# Requirements:
+    php_zip enabled
+    php_xml enabled
+    php_gd2 enabled (if not compiled in)
