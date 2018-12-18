@@ -32,7 +32,7 @@ final class GiftAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-			->add('name')
+			->addIdentifier('name')
             ->add('is_enabled', null,[
                 'editable' => true
             ])
