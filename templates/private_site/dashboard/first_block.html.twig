@@ -1,8 +1,16 @@
 <div class="row">
     <div class="col-md-7 dashboard-column-left">
-        <p>{{'dashboard.invitation'|trans}}</p>
+        {% if config.object.panel_text_1 %}
+            <div>
+                {{ config.object.panel_text_1|raw }}
+            </div>
+        {% endif %}
         <h1>{{ invitation.name }}</h1>
-        <div></div>
+        {% if config.object.panel_text_2 %}
+            <div>
+                {{ config.object.panel_text_2|raw }}
+            </div>
+        {% endif %}
     </div>
     <div class="col-md-5 dashboard-column-right">
         {% include 'private_site/dashboard/block_confirmator.html.twig' %}

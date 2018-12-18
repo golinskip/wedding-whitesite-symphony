@@ -6,6 +6,7 @@ use Knp\Menu\FactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack; 
 use Doctrine\ORM\EntityManager;
 use App\Entity\Page;
+use App\Services\ConfigService;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  
 class Builder 
@@ -16,14 +17,17 @@ class Builder
 
     protected $router;
 
+    protected $config;
+
     /** 
      * @param FactoryInterface $factory 
      */ 
-    public function __construct(FactoryInterface $factory, EntityManager $em, UrlGeneratorInterface  $router) 
+    public function __construct(FactoryInterface $factory, EntityManager $em, UrlGeneratorInterface  $router, ConfigService $config) 
     { 
         $this->factory = $factory; 
         $this->em = $em;
         $this->router = $router;
+        $this->config = $config;
     }
 
     public function PublicMenu(RequestStack $requestStack) 
@@ -61,6 +65,11 @@ class Builder
         $menu->addChild('confirmator.menu', [
             'route' => 'private_confirmator',
         ]);
+        if($this->config->getObject()->gift_enabled) {    
+            $menu->addChild('gift_list.menu', [
+                'route' => 'private_gift_list',
+            ]);
+        }
 
         $Pages = $this->em->getRepository(Page::class)->findPrivateEnabled();
         foreach($Pages as $Page) {

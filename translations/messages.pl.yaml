@@ -60,6 +60,8 @@ config:
         title: Tytuł strony
         navbar_show_login: Pokaż panel logowania na pasku menu
         navbar_title: Tytuł na pasku menu
+        text1: Tekst przed nazwą zaproszenia
+        text2: Tekst po nazwie zaproszenia
     gift:
         group: Lista prezentów
         enabled: Aktywuj listę prezentów
@@ -70,9 +72,12 @@ login:
     button: Zaloguj się
     code_label: Kod
     code_placeholder: Wpisz swój kod
+    msg:
+        invalid_code: Wpisany kod jest nieprawidłowy
 general:
     goto_invitation: Twoje zaproszenie
 gift_list:
+    menu: Lista prezentów
     buttons:
         chose: Wybierz ten prezent
         change: Zmień prezent na ten

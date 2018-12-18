@@ -2,9 +2,12 @@
     cp .env .env.dist
     vim .env.dist (and set variables)
     composer install
-    bin/console doctrine:schema:update --foce
+    cp -rf project_dist project
+(or copy project file to directory)
+    bin/console doctrine:schema:update --focre
     bin/console doctrine:fixtures:load
-    bin/console assets:install --symlink
+    bin/console ckeditor:install
+    bin/console assets:install
     npm install
     grunt
 

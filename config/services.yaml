@@ -173,7 +173,7 @@ services:
 
     app.menu_builder:
         class: App\Menu\Builder 
-        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@router"] 
+        arguments: ["@knp_menu.factory", "@doctrine.orm.entity_manager", "@router", "@app.config"] 
  
     app.private_menu: 
         class: Knp\Menu\MenuItem 

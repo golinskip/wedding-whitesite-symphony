@@ -42,7 +42,8 @@ module.exports = function (grunt) {
             main: {
                 files: [
                     {expand: true, flatten:true, filter: 'isFile', src: "src_web/js/**", dest: "public/js"},
-                    {expand: true, src: "src_web/img/**", dest: "public/img"}
+                    {expand: true, flatten:true, src: "src_web/img/**", dest: "public/img"},
+                    {expand: true, flatten:true, src: "project/img/**", dest: "public/img"}
                 ]
             }
         },

@@ -17,6 +17,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class InvitationAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -25,12 +26,14 @@ class InvitationAuthenticator extends AbstractFormLoginAuthenticator
     private $entityManager;
     private $router;
     private $csrfTokenManager;
+    private $translator;
 
-    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager)
+    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, TranslatorInterface $translator)
     {
         $this->entityManager = $entityManager;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->translator = $translator;
     }
 
     public function supports(Request $request)
@@ -64,7 +67,9 @@ class InvitationAuthenticator extends AbstractFormLoginAuthenticator
 
         if (!$Invitation) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Invitation could not be found.');
+            throw new CustomUserMessageAuthenticationException(
+                $this->translator->trans('login.msg.invalid_code')
+            );
         }
 
         return $Invitation;
