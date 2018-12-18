@@ -98,7 +98,7 @@ class ConfigService {
      * @param object $obj
      * @return void
      */
-    public function updateObject(object $obj) {
+    public function updateObject($obj) {
         foreach($this->configYaml['vars'] as $name => $configRow) {
             $currentConfigObj = null;
             foreach($this->values as $configObj) {
