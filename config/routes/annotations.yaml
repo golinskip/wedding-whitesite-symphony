@@ -6,3 +6,8 @@ private_site:
     resource: ../../src/Controller/PrivateSite
     type: annotation
     prefix: /panel
+
+admin:
+    resource: ../../src/Controller/AdminControllers
+    type: annotation
+    prefix: /admin

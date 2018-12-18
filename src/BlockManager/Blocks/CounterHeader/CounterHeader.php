@@ -14,13 +14,6 @@ class CounterHeader implements BlockModelInterface {
     private $description;
 
     /**
-     * Wedding date
-     *
-     * @var \DateTime
-     */
-    private $weddingDate;
-
-    /**
      * Text after counter
      *
      * @var string
@@ -60,7 +53,7 @@ class CounterHeader implements BlockModelInterface {
      *
      * @return  self
      */ 
-    public function setTextAfterCounter(string $textAfterCounter)
+    public function setTextAfterCounter(?string $textAfterCounter)
     {
         $this->textAfterCounter = $textAfterCounter;
 
@@ -84,7 +77,7 @@ class CounterHeader implements BlockModelInterface {
      *
      * @return  self
      */ 
-    public function setTextBeforeCounter(string $textBeforeCounter)
+    public function setTextBeforeCounter(?string $textBeforeCounter)
     {
         $this->textBeforeCounter = $textBeforeCounter;
 
@@ -108,33 +101,9 @@ class CounterHeader implements BlockModelInterface {
      *
      * @return  self
      */ 
-    public function setTextOnComplete(string $textOnComplete)
+    public function setTextOnComplete(?string $textOnComplete)
     {
         $this->textOnComplete = $textOnComplete;
-
-        return $this;
-    }
-
-    /**
-     * Get wedding date
-     *
-     * @return  \DateTime
-     */ 
-    public function getWeddingDate()
-    {
-        return $this->weddingDate;
-    }
-
-    /**
-     * Set wedding date
-     *
-     * @param  \DateTime  $weddingDate  Wedding date
-     *
-     * @return  self
-     */ 
-    public function setWeddingDate(\DateTime $weddingDate)
-    {
-        $this->weddingDate = $weddingDate;
 
         return $this;
     }
@@ -156,7 +125,7 @@ class CounterHeader implements BlockModelInterface {
      *
      * @return  self
      */ 
-    public function setDescription(string $description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
 

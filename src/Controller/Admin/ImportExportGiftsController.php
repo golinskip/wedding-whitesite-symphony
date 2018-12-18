@@ -11,16 +11,16 @@ use App\Services\ConfigService;
 use App\Model\ImportFile;
 use App\Form\Admin\ImportForm;
 
-class ImportExportController extends CRUDController
+class ImportExportGiftsController extends CRUDController
 {
     public function listAction()
     {
         $importInvitation = new ImportFile();
         $importInvitationsForm = $this->createForm(ImportForm::class, $importInvitation, [
-            'action' => $this->generateUrl('import_invitations'),
+            'action' => $this->generateUrl('import_gifts'),
         ]);
 
-        return $this->renderWithExtraParams('admin/import_export/index.html.twig', [
+        return $this->renderWithExtraParams('admin/import_export_gifts/index.html.twig', [
             'importInvitationsForm' => $importInvitationsForm->createView(),
         ]);
     }

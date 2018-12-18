@@ -2,17 +2,27 @@
 {# Provide LoginForm model class as data #}
 <div class="wws-block-login-form">
     {% if is_granted('ROLE_PRIVATE_ACCESS') %}
-        <a href="{{ path('private_index') }}" class="btn btn-outline-success my-2 my-sm-0">{{data.button_text|raw}}</a>
+        <a href="{{ path('private_index') }}" class="btn btn-outline-success my-2 my-sm-0">{{ "general.goto_invitation"|trans }}</a>
     {% else %}
     <form method="post" action="{{ path('app_login') }}">
-        <div class="input-group input-group-lg">
-                <label for="inputCode" class="sr-only">{{ 'login.code_label'|trans }}</label>
-                <input type="text" name="code" id="inputCode" class="form-control" aria-label="large" placeholder="{{ 'login.code_placeholder'|trans }}" required>
+        {% if data.titleText %}
+            <h3 class="text-center">{{ data.titleText|raw }}</h3>
+        {% endif %}
+        <div class="input-group input-group-lg" style="margin:auto; {% if data.width %}width:{{data.width|raw}};{% endif %}">
+                <input type="text" name="code" id="inputCode" class="form-control" aria-label="large" placeholder="{% spaceless %}{% if data.placeholder %}{{ data.placeholder|raw }}{% else %}{{ 'login.code_placeholder'|trans }}{% endif %}{% endspaceless %}" required>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <button class="btn btn-lg btn-primary" type="submit">
-                    {{ 'login.button'|trans }}
+                <button class="btn btn-lg btn-primary {% if data.style == 1 %}btn-block{% endif %}" type="submit">
+                    {% if data.buttonText %}
+                        {{data.buttonText|raw}}
+                    {% else %}
+                        {{ 'login.button'|trans }}
+                    {% endif %}
                 </button>
         </div>
+
+        {% if data.helpText %}
+            <p class="small text-center">{{ data.helpText|raw }}</p>
+        {% endif %}
 
     </form>
 

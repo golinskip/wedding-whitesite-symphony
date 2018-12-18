@@ -17,3 +17,23 @@ label:
     news: Aktualności
     gifts: Prezenty
     import_export: Import i eksport danych
+import:
+    msg:
+        fail_upload: Wystąpił błąd podczas przesyłania pliku na serwer
+        success_invitation: Zaproszenia zostały pomyślnie załadowane
+    invitations:
+        title: Importuj zaproszenia z pliku (.xls)
+    gifts:
+        title: Importuj listę prezentów (.xls)
+export:
+    invitations:
+        title: Eksportuj zaproszenia (.xls)
+        filename: zaproszenia
+        filetitle: Lista zaproszeń
+        headers:
+            A: Zaproszenie
+            B: Osoba
+            C: Grupa zaproszeń
+            D: Grupa osób
+            E: Kod dostępu
+    download: Pobierz

@@ -73,7 +73,6 @@ login:
 general:
     goto_invitation: Twoje zaproszenie
 gift_list:
-
     buttons:
         chose: Wybierz ten prezent
         change: Zmień prezent na ten
@@ -87,5 +86,6 @@ gift_list:
         can_not_unchose: Nie można zrezygnować z tego prezentu!
         is_yours: "Już wybrałeś ten prezent"
         is_reserved: "Niestety prezent <b>[name]</b> został wybrany przez inną osobę."
+        empty: Lista prezentów jest pusta!
     back: Powrót do listy prezentów
     details: Zobacz więcej

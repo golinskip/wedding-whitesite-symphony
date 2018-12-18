@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'pl'
+    import_directory: '%kernel.project_dir%/var/import'
 
 services:
     # default configuration for services in *this* file
@@ -132,6 +133,18 @@ services:
             - null
             - null
             - App\Controller\Admin\ImportExportController
+        public: true
+        calls:
+            - [ setTranslationDomain, [ "admin" ] ]
+
+    admin.importExportGifts:
+        class: App\Admin\ImportExportGiftsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: gift_list, label: label.import_export, label_catalogue: "admin" }
+        arguments:
+            - null
+            - null
+            - App\Controller\Admin\ImportExportGiftsController
         public: true
         calls:
             - [ setTranslationDomain, [ "admin" ] ]

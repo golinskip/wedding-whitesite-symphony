@@ -3,19 +3,29 @@
 {% block title %}{% endblock %}
 
 {% block content %}
+{% set found = false %}
 <div class="container-fluid spaced">
     <div class="container">
         {% for gift in app.user.gifts %}
+            {% set found = true %}
             {% include 'private_site/gift_list/row.html.twig'%}
         {% endfor %}
     </div>
     <div class="container">
         {% for gift in gifts %}
             {% if gift.invitation != app.user and (not gift.invitation or config.object.gift_show_chosen) %}
-            {% include 'private_site/gift_list/row.html.twig'%}
+                {% set found = true %}
+                {% include 'private_site/gift_list/row.html.twig'%}
             {% endif %}
         {% endfor %}
     </div>
+    {% if not found %}
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            {{ 'gift_list.messages.empty'|trans }}
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
 

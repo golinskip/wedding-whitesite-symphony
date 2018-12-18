@@ -14,6 +14,22 @@ config:
             group: config.general.group
             label: config.general.title
             show: true
+        panel_text_1:
+            type: string
+            form_type: FOS\CKEditorBundle\Form\Type\CKEditorType
+            form_options:
+                required: false
+            group: config.general.group
+            label: config.general.text1
+            show: true
+        panel_text_2:
+            type: string
+            form_type: FOS\CKEditorBundle\Form\Type\CKEditorType
+            form_options:
+                required: false
+            group: config.general.group
+            label: config.general.text2
+            show: true
         navbar_show_login:
             type: boolean
             form_type: Symfony\Component\Form\Extension\Core\Type\CheckboxType

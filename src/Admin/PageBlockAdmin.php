@@ -14,7 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\CoreBundle\Form\Type\DateTimePickerType;
 use App\BlockManager\Services\BlockService;
-use Sonata\CoreBundle\Form\Type\ColorType;
+//use Sonata\CoreBundle\Form\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Sonata\AdminBundle\Form\Type\ModelListType;
 use App\Entity\PageBlock;
 
@@ -66,9 +67,8 @@ class PageBlockAdmin extends AbstractAdmin
                     ->add('block_style', ChoiceType::class, [
                         'choices' => PageBlock::getStyles(),
                     ])
-                    ->add('bg_color', ColorType::class, [
+                    ->add('bg_color', TextType::class, [
                         'required' => false,
-                        'data' => '#ffffff',
                     ])
                     ->add('bg_image', 'sonata_type_model_list', ['required' => false], array(
                         'link_parameters' => [

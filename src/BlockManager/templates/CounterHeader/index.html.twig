@@ -6,7 +6,7 @@
         <div id="countdown"></div>
     </p>
     <script type="text/javascript">
-        var end = new Date('{{ data.weddingDate|date('Y-m-d H:i:s') }}');
+        var end = new Date('{{ config.object.event_date|date('Y-m-d H:i:s') }}');
         var _second = 1000;
         var _minute = _second * 60;
         var _hour = _minute * 60;

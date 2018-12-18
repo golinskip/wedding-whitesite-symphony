@@ -150,12 +150,20 @@ class Invitation implements UserInterface
         return $this->code;
     }
 
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
+        return $this;
+    }
+
     /**
      * @ORM\PrePersist
      */
-    public function setCode(): self
+    public function generateCode(): self
     {
-        $this->code = ValueGenerator::code();
+        if(!$this->getCode()) {
+            $this->code = ValueGenerator::code();
+        }
 
         return $this;
     }

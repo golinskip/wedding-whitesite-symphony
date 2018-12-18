@@ -17,9 +17,6 @@ class CounterHeaderForm extends AbstractType {
     
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('weddingDate', DateTimePickerType::class, [
-                'dp_side_by_side' => true,
-            ])
             ->add('description', CKEditorType::class)
             ->add('textAfterCounter', TextType::class, [
                 'required' => false,
