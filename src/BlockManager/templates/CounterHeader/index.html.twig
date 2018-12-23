@@ -6,7 +6,7 @@
         <div id="countdown"></div>
     </p>
     <script type="text/javascript">
-        var end = new Date('{{ config.object.event_date|date('Y-m-d H:i:s') }}');
+        var end = new Date('{{ config.object.event_date|date('Y-m-d H:i:s') }}').getTime();
         var _second = 1000;
         var _minute = _second * 60;
         var _hour = _minute * 60;
@@ -14,7 +14,7 @@
         var timer;
 
         function showRemaining() {
-            var now = new Date();
+            var now = new Date().getTime();
             var distance = end - now;
             if (distance < 0) {
 
