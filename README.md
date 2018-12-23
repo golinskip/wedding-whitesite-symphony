@@ -6,8 +6,8 @@
 
 (or copy project file to directory)
 
-    bin/console doctrine:schema:update --force
-    bin/console doctrine:fixtures:load
+    bin/console doctrine:migrations:migrate
+    bin/console doctrine:fixtures:load (first time)
     bin/console ckeditor:install
     bin/console assets:install
     npm install --no-audit
