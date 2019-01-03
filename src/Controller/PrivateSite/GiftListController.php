@@ -118,7 +118,7 @@ class GiftListController extends AbstractController
         );
         $this->get('app.recorder')
             ->start('gift.link')
-                ->record('gift.id', $gift->getId())
+                ->record('gift.name', $gift->getName())
             ->commit();
 
         return new RedirectResponse($referer);
@@ -170,7 +170,7 @@ class GiftListController extends AbstractController
 
         $this->get('app.recorder')
         ->start('gift.unlink')
-            ->record('gift.id', $gift->getId())
+            ->record('gift.name', $gift->getName())
         ->commit();
         return new RedirectResponse($referer);
     }
