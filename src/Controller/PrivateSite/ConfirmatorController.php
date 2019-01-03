@@ -6,9 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Invitation;
+use App\Entity\Person;
 use App\Entity\Parameter;
 use App\Entity\ParameterValue;
 use App\Form\Confirmator\ConfirmatorForm;
+use App\Services\Recorder;
 
 class ConfirmatorController extends AbstractController
 {
@@ -103,4 +105,38 @@ class ConfirmatorController extends AbstractController
         }
         $em->flush();
     }
+
+        
+    protected function notify($Invitation)
+    {
+        
+        $Recorder = $this->get('invitation.recorder')->start('invitation.confirm');
+        $Recorder->record('invitation.name', $Invitation->getName());
+        $PersonI = 0;
+        foreach($Invitation->getPerson() as $Person) {
+            $Recorder->record('person.'.$PersonI.'.name', $Person->getName());
+            $Recorder->record('person.'.$PersonI.'.status', $Person->getStatus());
+            if($Person->getStatus() === Person::STATUS_PRESENT && $Person->getParameterValues()) {
+                foreach($Person->getParameterValues() as $ParameterValue) {
+                    $ParameterArr = [
+                        'name' => $ParameterValue->getParameter()->getName(),
+                        'value' => $ParameterValue->getValue(),
+                    ];
+                    $Recorder->record('person.'.$PersonI.'.parameter', serialize($ParameterArr));
+                }
+            }
+            $PersonI++;
+        }
+        $Recorder->commit();
+    }
+
+
+
+    public static function getSubscribedServices()
+    {
+        return array_merge(parent::getSubscribedServices(), [
+            'block.service' => BlockService::class,
+        ]);
+    }
+
 }

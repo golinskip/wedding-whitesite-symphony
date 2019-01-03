@@ -188,6 +188,12 @@ services:
         arguments: ["@request_stack"] 
         tags: 
             - { name: knp_menu.menu, alias: public_menu }
+    
+
+    app.recorder:
+        class: InvitationBundle\Services\Recorder
+        arguments: [ "@doctrine.orm.entity_manager", "@security.token_storage", "@request_stack" ]
+        public: true
 
 
     # Data guards:
