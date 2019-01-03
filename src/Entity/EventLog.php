@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EventLog
 {
+    const ENV_ANON = 0;
+    const ENV_ADMIN = 1;
+    const ENV_PRIV = 2;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

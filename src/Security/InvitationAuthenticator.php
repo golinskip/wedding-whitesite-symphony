@@ -18,6 +18,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Translation\TranslatorInterface;
+use App\Services\Recorder;
 
 class InvitationAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -27,13 +28,19 @@ class InvitationAuthenticator extends AbstractFormLoginAuthenticator
     private $router;
     private $csrfTokenManager;
     private $translator;
+    private $recorder;
 
-    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, TranslatorInterface $translator)
+    public function __construct(    EntityManagerInterface $entityManager, 
+                                    RouterInterface $router, 
+                                    CsrfTokenManagerInterface $csrfTokenManager, 
+                                    TranslatorInterface $translator,
+                                    Recorder $recorder)
     {
         $this->entityManager = $entityManager;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->translator = $translator;
+        $this->recorder = $recorder;
     }
 
     public function supports(Request $request)
@@ -90,6 +97,8 @@ class InvitationAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        $this->recorder->start('login.code')->commit();
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }

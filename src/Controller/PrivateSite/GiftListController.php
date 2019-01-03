@@ -6,10 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Translation\TranslatorInterface;
 use App\Entity\Gift;
 use App\Form\Confirmator\ConfirmatorForm;
-use Symfony\Component\Translation\TranslatorInterface;
 use App\Services\ConfigService;
+use App\Services\Recorder;
 
 
 class GiftListController extends AbstractController
@@ -115,6 +116,10 @@ class GiftListController extends AbstractController
                 '[name]' => $gift->getName(),
             ])
         );
+        $this->get('app.recorder')
+            ->start('gift.link')
+                ->record('gift.id', $gift->getId())
+            ->commit();
 
         return new RedirectResponse($referer);
     }
@@ -163,6 +168,10 @@ class GiftListController extends AbstractController
             ])
         );
 
+        $this->get('app.recorder')
+        ->start('gift.unlink')
+            ->record('gift.id', $gift->getId())
+        ->commit();
         return new RedirectResponse($referer);
     }
 
@@ -171,6 +180,7 @@ class GiftListController extends AbstractController
     {
         return array_merge(parent::getSubscribedServices(), [
             'config' => ConfigService::class,
+            'app.recorder' => Recorder::class,
         ]);
     }
 }

@@ -31,6 +31,7 @@ class ConfirmatorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // @todo - Obsługa
             $Invitation = $form->getData();
+            $this->record($Invitation);
             //$Invitation->updateStatus();
             
             $em->persist($Invitation);
@@ -107,13 +108,12 @@ class ConfirmatorController extends AbstractController
     }
 
         
-    protected function notify($Invitation)
+    protected function record($Invitation)
     {
-        
-        $Recorder = $this->get('invitation.recorder')->start('invitation.confirm');
+        $Recorder = $this->get('app.recorder')->start('invitation.confirm');
         $Recorder->record('invitation.name', $Invitation->getName());
         $PersonI = 0;
-        foreach($Invitation->getPerson() as $Person) {
+        foreach($Invitation->getPeople() as $Person) {
             $Recorder->record('person.'.$PersonI.'.name', $Person->getName());
             $Recorder->record('person.'.$PersonI.'.status', $Person->getStatus());
             if($Person->getStatus() === Person::STATUS_PRESENT && $Person->getParameterValues()) {
@@ -135,7 +135,7 @@ class ConfirmatorController extends AbstractController
     public static function getSubscribedServices()
     {
         return array_merge(parent::getSubscribedServices(), [
-            'block.service' => BlockService::class,
+            'app.recorder' => Recorder::class,
         ]);
     }
 

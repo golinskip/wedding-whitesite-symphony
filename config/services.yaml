@@ -191,7 +191,7 @@ services:
     
 
     app.recorder:
-        class: InvitationBundle\Services\Recorder
+        class: App\Services\Recorder
         arguments: [ "@doctrine.orm.entity_manager", "@security.token_storage", "@request_stack" ]
         public: true
 

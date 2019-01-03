@@ -1,14 +1,14 @@
 <?php
 namespace App\Services;
 
-use App\Entity\EventLog;
-use App\Entity\EventLogDetail;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-use AppBundle\Entity\User;
-use InvitationBundle\Entity\Invitation;
+use App\Entity\EventLog;
+use App\Entity\EventLogDetail;
+use App\Entity\User;
+use App\Entity\Invitation;
 
 class Recorder {
     
@@ -22,7 +22,7 @@ class Recorder {
     
     protected $eventLogDetails = array();
 
-    public function __construct(EntityManager $em, TokenStorageInterface  $context, RequestStack $requestStack) {
+    public function __construct(EntityManagerInterface $em, TokenStorageInterface  $context, RequestStack $requestStack) {
         $this->em = $em;
         $this->context = $context;
         $this->request = $requestStack->getCurrentRequest();
@@ -67,11 +67,11 @@ class Recorder {
         $User = $this->getUser();
         switch(get_class($User)) {
             case User::class :
-                $this->eventLog->setEnv(EventLog::ENV_PANEL);
+                $this->eventLog->setEnv(EventLog::ENV_ADMIN);
                 $this->eventLog->setUser($User);
             break;
             case Invitation::class :
-                $this->eventLog->setEnv(EventLog::ENV_INVIT);
+                $this->eventLog->setEnv(EventLog::ENV_PRIV);
                 $this->eventLog->setInvitation($User);
             break;
             default:
