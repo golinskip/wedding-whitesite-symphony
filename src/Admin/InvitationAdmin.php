@@ -78,6 +78,7 @@ class InvitationAdmin extends AbstractAdmin
     }
 
     public function prePersist($Invitation) {
+        
         foreach($Invitation->getPeople() as $Person) {
             $Person->setInvitation($Invitation);
         }

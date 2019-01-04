@@ -4,6 +4,7 @@ group:
     setup: Ustawienia
     gift_list: Lista prezentów
     media: Media
+    stats: Statystyki
     user: Administratorzy
 label:
     invitations: Zaproszenia
@@ -17,6 +18,7 @@ label:
     news: Aktualności
     gifts: Prezenty
     import_export: Import i eksport danych
+    event_logs: Dziennik zdarzeń
 import:
     msg:
         fail_upload: Wystąpił błąd podczas przesyłania pliku na serwer
@@ -37,3 +39,11 @@ export:
             D: Grupa osób
             E: Kod dostępu
     download: Pobierz
+logs:
+    login:
+        code: Logowanie do panelu
+    gift:
+        link: Wybranie prezentu
+        unlink: Rezygnacja z prezentu
+    invitation:
+        confirm: Potwierdzenie zaproszenia

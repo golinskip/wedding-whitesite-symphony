@@ -97,11 +97,17 @@ class Invitation implements UserInterface
      */
     private $gifts;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EventLog", mappedBy="invitation")
+     */
+    private $eventLog;
+
     public function __construct()
     {
         $this->people = new ArrayCollection();
         $this->parameterValues = new ArrayCollection();
         $this->gifts = new ArrayCollection();
+        $this->eventLog = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -407,6 +413,37 @@ class Invitation implements UserInterface
             // set the owning side to null (unless already changed)
             if ($gift->getInvitation() === $this) {
                 $gift->setInvitation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventLog[]
+     */
+    public function getEventLog(): Collection
+    {
+        return $this->eventLog;
+    }
+
+    public function addEventLog(EventLog $eventLog): self
+    {
+        if (!$this->eventLog->contains($eventLog)) {
+            $this->eventLog[] = $eventLog;
+            $eventLog->setInvitation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventLog(EventLog $eventLog): self
+    {
+        if ($this->eventLog->contains($eventLog)) {
+            $this->eventLog->removeElement($eventLog);
+            // set the owning side to null (unless already changed)
+            if ($eventLog->getInvitation() === $this) {
+                $eventLog->setInvitation(null);
             }
         }
 

@@ -24,6 +24,10 @@ sonata_admin:
                 label: group.user
                 label_catalogue: "admin" 
                 icon: '<i class="fa fa-users"></i>'
+            stats:
+                label: group.stats
+                label_catalogue: "admin" 
+                icon: '<i class="fa fa-line-chart"></i>'
             setup:
                 label: group.setup
                 label_catalogue: "admin" 
