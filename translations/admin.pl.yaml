@@ -47,3 +47,16 @@ logs:
         unlink: Rezygnacja z prezentu
     invitation:
         confirm: Potwierdzenie zaproszenia
+invitation:
+    table:
+        login: Zaloguj się
+        status:
+            all: Wszyscy będą
+            part: Część będzie
+            unknown: Są niepotwierdzeni
+            nobody: Nikt nie będzie
+person:
+    status:
+        present: Obecny
+        absent: Nieobecny
+        unknown: Niepotwierdzony

@@ -1,0 +1,11 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+{% trans_default_domain 'admin' %}
+
+{% block field %}
+    <div>
+        {{ object.code }}
+        <a href="{{ path('app_login', {'token' : object.token}) }}" target="_blank" class="btn btn-sm btn-default edit_link" title="{{ 'invitation.table.login' | trans }}">
+            {{ 'invitation.table.login' | trans }} <i class="fa fa-sign-in" aria-hidden="true"></i>
+        </a>
+    </div>
+{% endblock %}

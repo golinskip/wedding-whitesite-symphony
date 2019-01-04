@@ -57,7 +57,11 @@ class PersonAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name');
+        $listMapper
+            ->addIdentifier('name')
+            ->add('status', null, ['template' => 'admin/person/fields/table_status.html.twig'])
+            ->add('invitation', null, ['template' => 'admin/person/fields/table_invitation.html.twig'])
+            ;
     }
 
     public function prePersist($Invitation) {}

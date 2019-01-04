@@ -1,0 +1,16 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+{% trans_default_domain 'admin' %}
+
+{% block field %}
+    <div>
+        {% if object.partialStatus == 0 %}
+            <span class="label label-warning">{{'invitation.table.status.unknown'|trans}}</span>
+        {% elseif object.partialStatus == 1 %}
+            <span class="label label-success">{{'invitation.table.status.all'|trans}}</span>
+        {% elseif object.partialStatus == 2 %}
+            <span class="label label-success">{{'invitation.table.status.part'|trans}}</span>
+        {% elseif object.partialStatus == 3 %}
+            <span class="label label-danger">{{'invitation.table.status.nobody'|trans}}</span>
+        {% endif %}
+    </div>
+{% endblock %}
