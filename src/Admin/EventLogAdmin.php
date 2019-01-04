@@ -22,11 +22,9 @@ final class EventLogAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-			->add('invitation.name')
-			->add('tag', null, ['template' => 'admin/stats/list/tag.html.twig'])
+			->addIdentifier('invitation.name', null, ['route'=>['name'=>'show']])
+			->add('tag', null, ['template' => 'admin/stats/event_logs/tag.html.twig'])
 			->add('date')
-			->add('userAgent')
-			->add('ip')
 			->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -38,11 +36,11 @@ final class EventLogAdmin extends AbstractAdmin
     {
         $showMapper
 			->add('invitation.name')
-			->add('tag')
+			->add('tag', null, ['template' => 'admin/stats/event_logs/tag_details.html.twig'])
 			->add('date')
 			->add('userAgent')
 			->add('ip')
-			->add('details', null, ['template' => 'admin/stats/list/details.html.twig'])
+			->add('details', null, ['template' => 'admin/stats/event_logs/details.html.twig'])
 			;
 	}
 	

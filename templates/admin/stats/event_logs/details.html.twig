@@ -6,8 +6,8 @@
         <table>
         {% for detail in object.eventLogDetails %}
             <tr>
-                <td>{{ detail.variable }}</td>
-                <td>{{ detail.value }}</td>
+                <td><b>{{ detail.variable }}</b>: </td>
+                <td>{{ detail.value }} </td>
             </tr>
         {% endfor %}
         </table>
