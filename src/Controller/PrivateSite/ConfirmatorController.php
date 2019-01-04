@@ -5,17 +5,20 @@ namespace App\Controller\PrivateSite;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Translation\TranslatorInterface;
 use App\Entity\Invitation;
+use App\Entity\Person;
 use App\Entity\Parameter;
 use App\Entity\ParameterValue;
 use App\Form\Confirmator\ConfirmatorForm;
+use App\Services\Recorder;
 
 class ConfirmatorController extends AbstractController
 {
     /**
      * @Route("/confirmator", name="private_confirmator")
      */
-    public function index(Request $request)
+    public function index(Request $request, TranslatorInterface $translator)
     {
         $em = $this->getDoctrine()->getManager();
         $Invitation = $this->getUser();
@@ -29,10 +32,15 @@ class ConfirmatorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // @todo - Obsługa
             $Invitation = $form->getData();
+            $this->record($Invitation);
             //$Invitation->updateStatus();
             
             $em->persist($Invitation);
             $em->flush();
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', $translator->trans('confirmator.messages.success'))
+            ;
             
             return $this->redirectToRoute('private_confirmator');
         }
@@ -103,4 +111,37 @@ class ConfirmatorController extends AbstractController
         }
         $em->flush();
     }
+
+        
+    protected function record($Invitation)
+    {
+        $Recorder = $this->get('app.recorder')->start('invitation.confirm');
+        $Recorder->record('invitation.name', $Invitation->getName());
+        $PersonI = 0;
+        foreach($Invitation->getPeople() as $Person) {
+            $Recorder->record('person.'.$PersonI.'.name', $Person->getName());
+            $Recorder->record('person.'.$PersonI.'.status', $Person->getStatus());
+            if($Person->getStatus() === Person::STATUS_PRESENT && $Person->getParameterValues()) {
+                foreach($Person->getParameterValues() as $ParameterValue) {
+                    $ParameterArr = [
+                        'name' => $ParameterValue->getParameter()->getName(),
+                        'value' => $ParameterValue->getValue(),
+                    ];
+                    $Recorder->record('person.'.$PersonI.'.parameter', serialize($ParameterArr));
+                }
+            }
+            $PersonI++;
+        }
+        $Recorder->commit();
+    }
+
+
+
+    public static function getSubscribedServices()
+    {
+        return array_merge(parent::getSubscribedServices(), [
+            'app.recorder' => Recorder::class,
+        ]);
+    }
+
 }

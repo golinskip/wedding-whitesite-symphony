@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Sonata\AdminBundle\Show\ShowMapper;
 use App\Entity\Invitation;
 use App\Form\Admin\PersonInInvitationForm;
 use App\Entity\InvitationGroup;
@@ -65,11 +66,13 @@ class InvitationAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name')
-            ->add('code')
-            ->addIdentifier('invitationGroup.name')
+            ->addIdentifier('name', null, ['route'=>['name'=>'show']])
+            ->add('status', null, ['template' => 'admin/invitation/fields/table_status.html.twig'])
+            ->add('code', null, ['template' => 'admin/invitation/fields/table_code.html.twig'])
+            ->add('invitationGroup.name')
             ->add('_action', null, [
                 'actions' => [
+                    'show' => [],
                     'edit' => [],
                     'delete' => [],
                 ]
@@ -77,7 +80,21 @@ class InvitationAdmin extends AbstractAdmin
             ;
     }
 
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+			->add('name')
+            ->add('status', null, ['template' => 'admin/invitation/fields/show_status.html.twig'])
+			->add('invitationGroup.name')
+            ->add('code', null, ['template' => 'admin/invitation/fields/show_code.html.twig'])
+			->add('phone')
+			->add('email')
+            ->add('people', null, ['template' => 'admin/invitation/fields/show_people.html.twig'])
+			;
+	}
+
     public function prePersist($Invitation) {
+        
         foreach($Invitation->getPeople() as $Person) {
             $Person->setInvitation($Invitation);
         }

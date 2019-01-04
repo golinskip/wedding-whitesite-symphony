@@ -1,10 +1,8 @@
 <div class="wws-block-counter-header">
     {% if data.description %}
-        <p>{{ data.description|raw }}</p>
+        {{ data.description|raw }}
     {% endif %}
-    <p>
-        <div id="countdown"></div>
-    </p>
+    <div id="countdown"></div>
     <script type="text/javascript">
         var end = new Date({{ config.object.event_date|date('Y') }},{{ config.object.event_date|date('m')-1 }},{{ config.object.event_date|date('d') }},{{ config.object.event_date|date('H') }},{{ config.object.event_date|date('i') }},{{ config.object.event_date|date('s') }}).getTime();
         var _second = 1000;

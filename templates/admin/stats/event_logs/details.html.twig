@@ -1,0 +1,15 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+{% trans_default_domain 'admin' %}
+
+{% block field %}
+    <div>
+        <table>
+        {% for detail in object.eventLogDetails %}
+            <tr>
+                <td><b>{{ detail.variable }}</b>: </td>
+                <td>{{ detail.value }} </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

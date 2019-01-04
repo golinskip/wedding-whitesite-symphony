@@ -29,6 +29,16 @@ class InvitationRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findOneByToken($token): ?Invitation
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.token = :token')
+            ->setParameter('token', $token)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     public function findOneByUrlName($urlName): ?Invitation
     {
         return $this->createQueryBuilder('i')

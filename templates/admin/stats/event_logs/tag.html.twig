@@ -1,0 +1,8 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+{% trans_default_domain 'admin' %}
+
+{% block field %}
+    <div>
+        {{ ('logs.'~object.tag) | trans }}
+    </div>
+{% endblock %}

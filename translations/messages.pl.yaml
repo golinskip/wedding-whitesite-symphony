@@ -10,13 +10,15 @@ blocks:
         sd: sekunda
 confirmator:
     menu: Obecność
-    title: Potwierdź obecność
+    title: Twoja obecność / nieobecność
     yes: Tak
     no: Nie
+    messages:
+        success: Dziękujemy za zaktualizowanie informacji!
     instructions:
         - "Wpisz lub popraw imię i nazwisko osób, jeśli się nie zgadza"
-        - "Określ, czy dana osoba będzie obecna, klikając na przycisk obok imienia i nazwiska"
-        - "W przypadku osób obecnych wypełnij formularz, który pojawi się poniżej"
+        - "Określ, czy dana osoba będzie obecna, wybierając pole obok imienia i nazwiska"
+        - "Kliknij przycisk \"Zapisz\" aby potwierdzić wprowadzone zmiany"
     form:
         submit: Zapisz
         persons: Osoby
@@ -31,7 +33,7 @@ confirmator:
 dashboard:
     invitation: "Serdecznie witamy w naszym panelu,"
     buttons:
-        confirm: Potwierdź obecność
+        confirm: Twoja obecność / nieobecność
         contact: Dane kontaktowe
         gift_list: Lista prezentów
     reactions:
@@ -46,7 +48,7 @@ dashboard:
             text: cieszymy się, że chociaż częściowo będziecie z nami w tym wspaniałym dniu!
         none:
             title: Drodzy goście,
-            text: bardzo żałujemy, że nie będzie Was z nami.
+            text: bardzo żałujemy, że nie będzie Was z nami. Dziękujemy, za infocmację o Waszej nieobecności.
     gifts:
         chosen1: Wybrany przez Ciebie prezent
         chosen: Wybrane przez Ciebie prezenty
@@ -62,6 +64,7 @@ config:
         navbar_title: Tytuł na pasku menu
         text1: Tekst przed nazwą zaproszenia
         text2: Tekst po nazwie zaproszenia
+        get_contact_data: Zbieraj dane kontaktowe
     gift:
         group: Lista prezentów
         enabled: Aktywuj listę prezentów
@@ -94,3 +97,14 @@ gift_list:
         empty: Lista prezentów jest pusta!
     back: Powrót do listy prezentów
     details: Zobacz więcej
+contact_data:
+    update: Twoje dane kontaktowe nie są uzupełnione.
+    update_link: Aby je uzupełnić kliknij tutaj.
+    menu: Moje dane
+    title: Dane kontaktowe
+    phone: Numer telefonu
+    email: Adres e-mail
+    submit: Zapisz
+    clausule: Zapisując dane osobowe wyrażasz zgodę na ich przetwarzanie przez Państwa Młodych. Będą one wykorzystywane wyłącznie w celach związanych bezpośrednio z organizacją ślubu i wesela.
+    messages:
+        success: Pomyślnie uaktualniono dane kontaktowe

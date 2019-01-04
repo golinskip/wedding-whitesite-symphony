@@ -1,0 +1,23 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+{% trans_default_domain 'admin' %}
+
+{% block field %}
+    <div>
+    <table>
+    {% for person in object.people %}
+        <tr>
+            <td>{{ person.name }}</td>
+            <td>
+                {% if person.status == 0 %}
+                    <span class="label label-warning">{{'person.status.unknown'|trans}}</span>
+                {% elseif person.status == 1 %}
+                    <span class="label label-success">{{'person.status.present'|trans}}</span>
+                {% elseif person.status == 2 %}
+                    <span class="label label-danger">{{'person.status.absent'|trans}}</span>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+{% endblock %}
