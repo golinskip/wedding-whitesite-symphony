@@ -130,7 +130,11 @@ class InvitationAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $this->recorder->start('login.code')->commit();
+        if( $this->mode === self::MODE_TOKEN ) {
+            $this->recorder->start('login.token')->commit();
+        } else {
+            $this->recorder->start('login.code')->commit();
+        }
 
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);

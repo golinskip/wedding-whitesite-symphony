@@ -42,6 +42,7 @@ export:
 logs:
     login:
         code: Logowanie do panelu
+        token: Logowanie z poziomu panelu admina
     gift:
         link: Wybranie prezentu
         unlink: Rezygnacja z prezentu
