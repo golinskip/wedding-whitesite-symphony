@@ -17,8 +17,8 @@ confirmator:
         success: Obecność uaktualniona!
     instructions:
         - "Wpisz lub popraw imię i nazwisko osób, jeśli się nie zgadza"
-        - "Określ, czy dana osoba będzie obecna, klikając na przycisk obok imienia i nazwiska"
-        - "W przypadku osób obecnych wypełnij formularz, który pojawi się poniżej"
+        - "Określ, czy dana osoba będzie obecna, wybierając pole obok imienia i nazwiska"
+        - "Kliknij przycisk \"Zapisz\" aby potwierdzić wprowadzone zmiany"
     form:
         submit: Zapisz
         persons: Osoby

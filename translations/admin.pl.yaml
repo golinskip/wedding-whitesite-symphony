@@ -48,6 +48,7 @@ logs:
         unlink: Rezygnacja z prezentu
     invitation:
         confirm: Potwierdzenie zaproszenia
+        update: Aktualizacja danych kontaktowych
 invitation:
     table:
         login: Zaloguj się
