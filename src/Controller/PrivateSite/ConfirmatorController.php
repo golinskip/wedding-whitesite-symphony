@@ -5,6 +5,7 @@ namespace App\Controller\PrivateSite;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Translation\TranslatorInterface;
 use App\Entity\Invitation;
 use App\Entity\Person;
 use App\Entity\Parameter;
@@ -17,7 +18,7 @@ class ConfirmatorController extends AbstractController
     /**
      * @Route("/confirmator", name="private_confirmator")
      */
-    public function index(Request $request)
+    public function index(Request $request, TranslatorInterface $translator)
     {
         $em = $this->getDoctrine()->getManager();
         $Invitation = $this->getUser();
