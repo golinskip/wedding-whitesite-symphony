@@ -77,3 +77,11 @@ config:
             group: config.gift.group
             label: config.gift.multiple
             show: true
+        get_contact_data:
+            type: boolean
+            form_type: Symfony\Component\Form\Extension\Core\Type\CheckboxType
+            form_options:
+                required: false
+            group: config.general.group
+            label: config.general.get_contact_data
+            show: true

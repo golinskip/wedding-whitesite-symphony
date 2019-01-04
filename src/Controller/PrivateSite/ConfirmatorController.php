@@ -36,6 +36,10 @@ class ConfirmatorController extends AbstractController
             
             $em->persist($Invitation);
             $em->flush();
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', $translator->trans('confirmator.messages.success'))
+            ;
             
             return $this->redirectToRoute('private_confirmator');
         }

@@ -1,0 +1,12 @@
+{% extends 'private_site/base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+        <small>{{ 'contact_data.clausule' | trans }}</small>
+    </div>
+{% endblock %}

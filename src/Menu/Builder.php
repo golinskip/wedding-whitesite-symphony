@@ -89,6 +89,11 @@ class Builder
                 }
             }
         }
+        if($this->config->getObject()->get_contact_data) {
+            $menu->addChild('contact_data.menu', [
+                'route' => 'private_contact_data',
+            ]);
+        }
 
 		$menu->addChild('login.logout', [
             'route' => 'app_logout',
