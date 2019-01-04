@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.0 - 2019-01-04
+### Frontend
+- Personal data
+- Better texts
+- Fix: Hide hamburger when no menu
+- Fix: Counter on Apple devices
+- Fix: Info after confirmation
+
+### Backend
+- Status logs
+- Login to frontend by token
+- Details about confirmations for person and invitation
+
+
 ## 1.0.0 - 2018-12-23
 ### Frontend
 - Home site and Private Site
