@@ -4,7 +4,7 @@
 {% block field %}
     <div>
         {{ object.code }}
-        <a href="{{ path('app_login', {'token' : object.token}) }}" target="_blank" class="btn btn-sm btn-default edit_link" title="{{ 'invitation.table.login' | trans }}">
+        <a href="//{{ base_host }}{{ path('app_login', {'token' : object.token}) }}" target="_blank" class="btn btn-sm btn-default edit_link" title="{{ 'invitation.table.login' | trans }}">
             {{ 'invitation.table.login' | trans }} <i class="fa fa-sign-in" aria-hidden="true"></i>
         </a>
     </div>

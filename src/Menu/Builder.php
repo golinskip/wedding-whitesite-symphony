@@ -65,7 +65,7 @@ class Builder
         $menu->addChild('confirmator.menu', [
             'route' => 'private_confirmator',
         ]);
-        if($this->config->getObject()->gift_enabled) {    
+        if($this->config->getObject()->gift_enabled) {
             $menu->addChild('gift_list.menu', [
                 'route' => 'private_gift_list',
             ]);

@@ -10,3 +10,5 @@ twig:
         '%kernel.project_dir%/src/BlockManager/templates': BlockManagerTemplates
     globals:
         config: "@app.config"
+        base_host: '%base_host%'
+        admin_host: '%admin_host%'
