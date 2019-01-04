@@ -42,8 +42,22 @@ export:
 logs:
     login:
         code: Logowanie do panelu
+        token: Logowanie z poziomu panelu admina
     gift:
         link: Wybranie prezentu
         unlink: Rezygnacja z prezentu
     invitation:
         confirm: Potwierdzenie zaproszenia
+invitation:
+    table:
+        login: Zaloguj się
+        status:
+            all: Wszyscy będą
+            part: Część będzie
+            unknown: Są niepotwierdzeni
+            nobody: Nikt nie będzie
+person:
+    status:
+        present: Obecny
+        absent: Nieobecny
+        unknown: Niepotwierdzony

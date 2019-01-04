@@ -1,0 +1,10 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+{% trans_default_domain 'admin' %}
+
+{% block field %}
+    <div>
+        <a href="{{ path('admin_app_invitation_show', {'id' : object.invitation.id}) }}"  title="{{ object.invitation.name }}">
+            {{ object.invitation.name }}
+        </a>
+    </div>
+{% endblock %}
